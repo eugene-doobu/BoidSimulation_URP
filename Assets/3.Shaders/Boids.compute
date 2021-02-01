@@ -1,0 +1,206 @@
+﻿// 커널 함수를 지정
+#pragma kernel ForceCS      // 조향력을 계산
+#pragma kernel IntegrateCS  // 속도, 위치를 계산
+
+// Boid 데이터 구조체
+struct BoidData
+{
+	float3 velocity; // 速度
+	float3 position; // 位置
+};
+
+// 스레드 그룹의 크기
+#define SIMULATION_BLOCK_SIZE 256
+
+// Boid 데이터 버퍼 (읽기용)
+StructuredBuffer<BoidData>   _BoidDataBufferRead;
+// Boid 데이터 버퍼 (읽기, 쓰기용)
+RWStructuredBuffer<BoidData> _BoidDataBufferWrite;
+// Boid의 조향력의 버퍼 (읽기용) 
+StructuredBuffer<float3>     _BoidForceBufferRead;
+// Boid의 조향력의 버퍼 (읽기, 쓰기용)
+RWStructuredBuffer<float3>   _BoidForceBufferWrite;
+
+int _MaxBoidObjectNum; // Boid 개체 수
+
+float _DeltaTime;      // 이전 프레임에서 경과한 시간
+
+float _SeparateNeighborhoodRadius;  // 분리를 적용하는 다른 개체와의 거리
+float _AlignmentNeighborhoodRadius; // 정렬을 적용하는 다른 개체와의 거리
+float _CohesionNeighborhoodRadius;  // 결합을 적용하는 다른 개체와의 거리
+
+float _MaxSpeed;        // 속도의 최대 값
+float _MaxSteerForce;   // 조향 능력의 최대치
+
+float _SeparateWeight;  // 분리 적용시 가중치
+float _AlignmentWeight; // 병렬 적용시 가중치
+float _CohesionWeight;  // 결합 적용시 가중치
+
+float4 _WallCenter;      // 벽의 중심 좌표
+float4 _WallSize;        // 벽의 크기
+float  _AvoidWallWeight; // 벽을 피하는 강도의 무게
+
+
+// 벡터의 크기를 제한하기
+float3 limit(float3 vec, float max)
+{
+	float length = sqrt(dot(vec, vec)); // 크기
+	return (length > max && length > 0) ? vec.xyz * (max / length) : vec.xyz;
+}
+
+// 벽에 맞았을 때 반대 방향의 힘을 반환
+float3 avoidWall(float3 position)
+{
+	float3 wc = _WallCenter.xyz;
+	float3 ws = _WallSize.xyz;
+	float3 acc = float3(0, 0, 0);
+	// x
+	acc.x = (position.x < wc.x - ws.x * 0.5) ? acc.x + 1.0 : acc.x;
+	acc.x = (position.x > wc.x + ws.x * 0.5) ? acc.x - 1.0 : acc.x;
+	
+	// y
+	acc.y = (position.y < wc.y - ws.y * 0.5) ? acc.y + 1.0 : acc.y;
+	acc.y = (position.y > wc.y + ws.y * 0.5) ? acc.y - 1.0 : acc.y;
+	
+	// z
+	acc.z = (position.z < wc.z - ws.z * 0.5) ? acc.z + 1.0 : acc.z;
+	acc.z = (position.z > wc.z + ws.z * 0.5) ? acc.z - 1.0 : acc.z;
+
+	return acc;
+}
+
+// Boid 데이터 저장 용 공유 메모리
+groupshared BoidData boid_data[SIMULATION_BLOCK_SIZE];
+
+// 조향능력 계산용 커널 함수
+[numthreads(SIMULATION_BLOCK_SIZE, 1, 1)]
+void ForceCS
+(
+	uint3 DTid : SV_DispatchThreadID, // 스레드 전체에서 고유 ID
+	uint3 Gid : SV_GroupID,           // 그룹의 ID
+	uint3 GTid : SV_GroupThreadID,    // 그룹 내의 스레드레스 ID
+	uint  GI : SV_GroupIndex          // SV_GroupThreadID를 1차원으로 한 것 0 ~ 255
+)
+{
+	const unsigned int P_ID = DTid.x; // 自身のID
+	float3 P_position = _BoidDataBufferRead[P_ID].position; // 자신의 위치
+	float3 P_velocity = _BoidDataBufferRead[P_ID].velocity; // 자신의 속도
+
+	float3 force = float3(0, 0, 0); // 조향능력을 초기화
+
+	float3 sepPosSum = float3(0, 0, 0); // 분리 계산용 위치 누적용 변수
+	int sepCount = 0; // 분리를 위해 계산된 다른 개체수의 카운트용 변수
+
+	float3 aliVelSum = float3(0, 0, 0); // 정렬계산용 위치 누적용 변수
+	int aliCount = 0; // 정렬을 위해 계산한 다른 개체의 수 카운트용 변수
+
+	float3 cohPosSum = float3(0, 0, 0); // 결합계산용 위치 누적용 변수
+	int cohCount = 0; // 결합을 위해 계산된 다른 개체수의 카운트용 변수
+
+	// SIMULATION_BLOCK_SIZE(그룹 스레드 수)별 실행(그룹 수 만큼 실행)
+	[loop]
+	for (uint N_block_ID = 0; N_block_ID < (uint)_MaxBoidObjectNum;
+		N_block_ID += SIMULATION_BLOCK_SIZE)
+	{
+		// SIMULATION_BLOCK_SIZE 만큼의 Boid데이터를 쉐어드 메모리로 로드
+		boid_data[GI] = _BoidDataBufferRead[N_block_ID + GI];
+
+		// 그룹 내 모든 스레드가 공유 메모리 엑세스를 마치고
+		// 이 호출에 도달할 때까지
+		// 그룹 내 모든 스레드들이 여기서 기다린다.
+		GroupMemoryBarrierWithGroupSync();
+
+		// 다른 개체와의 관계 계산
+		for (int N_tile_ID = 0; N_tile_ID < SIMULATION_BLOCK_SIZE; N_tile_ID++)
+		{
+			float3 N_position = boid_data[N_tile_ID].position; // 다른 개체의 위치
+			float3 N_velocity = boid_data[N_tile_ID].velocity; // 다른 개체의 속도
+
+			float3 diff = P_position - N_position; // 자신과 다른 개체의 위치의 차이
+			float  dist = sqrt(dot(diff, diff));   // 자신과 다른 개체와의 거리
+
+			// --- 분리（Separation） ---
+			if (dist > 0.0 && dist <= _SeparateNeighborhoodRadius)
+			{
+				// 다른 개체의 위치에서 자신을 향하는 벡터
+				float3 repulse = normalize(P_position - N_position);
+				// 자신과 다른 개체의 위치를 거리로 나눈다(거리가 멀면 영향은 작음)
+				repulse /= dist;
+				sepPosSum += repulse; // 누적
+				sepCount++;           // 개체 수 카운트
+			}
+
+			// --- 정렬（Alignment） ---
+			if (dist > 0.0 && dist <= _AlignmentNeighborhoodRadius)
+			{
+				aliVelSum += N_velocity; // 누적
+				aliCount++;              // 개체 수 카운트
+			}
+
+			// --- 결합（Cohesion） ---
+			if (dist > 0.0 && dist <= _CohesionNeighborhoodRadius)
+			{
+				cohPosSum += N_position; // 누적
+				cohCount++;              // 개체 수 카운트 
+			}
+		}
+		GroupMemoryBarrierWithGroupSync();
+	}
+
+	// 조향력（분리）
+	float3 sepSteer = (float3)0.0;
+	if (sepCount > 0)
+	{
+		sepSteer = sepPosSum / (float)sepCount;     // 평균 구하기
+		sepSteer = normalize(sepSteer) * _MaxSpeed; // 최대 속도로 조정
+		sepSteer = sepSteer - P_velocity;           // 조향력을 계산
+		sepSteer = limit(sepSteer, _MaxSteerForce); // 조향력을 제한
+	}
+
+	// 조향력 (정렬)
+	float3 aliSteer = (float3)0.0;
+	if (aliCount > 0)
+	{
+		aliSteer = aliVelSum / (float)aliCount;     // 가까운 개체의 평균 속도 구하기
+		aliSteer = normalize(aliSteer) * _MaxSpeed; // 최대 속도로 조정
+		aliSteer = aliSteer - P_velocity;           // 조향력을 계산
+		aliSteer = limit(aliSteer, _MaxSteerForce); // 조향능력을 제한
+	}
+	// 조향력（결합）
+	float3 cohSteer = (float3)0.0;
+	if (cohCount > 0)
+	{
+		cohPosSum = cohPosSum / (float)cohCount;    // 가까운 개체의 평균을 구하기
+		cohSteer = cohPosSum - P_position;      // 평균 위치 방향으로 벡터를 구하기
+		cohSteer = normalize(cohSteer) * _MaxSpeed; // 최대 속도로 조정
+		cohSteer = cohSteer - P_velocity;           // 조향력을 계산
+		cohSteer = limit(cohSteer, _MaxSteerForce); // 조향력을 제한
+	}
+	force += aliSteer * _AlignmentWeight; // 조향력에 정렬하는 힘을 더한다
+	force += cohSteer * _CohesionWeight;  // 조향력에 결합하는 힘을 더한다
+	force += sepSteer * _SeparateWeight;  // 조향력에 분리하는 힘을 더한다
+
+	_BoidForceBufferWrite[P_ID] = force; // 쓰기
+}
+
+// 속도, 위치 계산을 위한 커널 함수
+[numthreads(SIMULATION_BLOCK_SIZE, 1, 1)]
+void IntegrateCS
+(
+	uint3 DTid : SV_DispatchThreadID // 스레드 전체에서 고유 ID
+)
+{
+	const unsigned int P_ID = DTid.x;          // 인덱스를 가져온다
+											           
+	BoidData b = _BoidDataBufferWrite[P_ID];   // 현재 Boid 데이터 읽기
+	float3 force = _BoidForceBufferRead[P_ID]; // 조향력을 읽기
+	
+	// 벽에 가까워지면 반발하는 힘을 부여한다
+	force += avoidWall(b.position) * _AvoidWallWeight; 
+
+	b.velocity += force * _DeltaTime;          // 조향력을 속도에 적용
+	b.velocity = limit(b.velocity, _MaxSpeed); // 속도를 제한
+	b.position += b.velocity * _DeltaTime;     // 위치를 업데이트
+											           
+	_BoidDataBufferWrite[P_ID] = b;            // 계산 결과를 쓰기
+}
