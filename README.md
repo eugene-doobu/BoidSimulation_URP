@@ -19,3 +19,11 @@
 https://github.com/IndieVisualLab/UnityGraphicsProgramming</br>
 - 第3章 群のシミュレーションのGPU実装
 - hiroakioishi: https://irishoak.tumblr.com/
+
+Flocks, Herds, and Schools:A Distributed Behavioral Model
+- ACM SIGGRAPH '87 Conference Proceedings, Anaheim, California, July 1987
+- Craig W. Reynolds
+
+Perception of Realistic Flocking Behavior in the Boid Algorithm
+- Bachelor Thesis Computer Science 10 2017
+- Max Larsson and Sebastian Lundgren
