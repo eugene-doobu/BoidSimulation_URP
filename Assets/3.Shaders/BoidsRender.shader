@@ -49,6 +49,8 @@
                 float4 vertex : POSITION;
                 half3  color  : COLOR;
                 float3 normal : NORMAL;
+                float2 uv     : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings
@@ -56,6 +58,10 @@
                 float4 vertex      : SV_POSITION;
                 half3  color       : COLOR;
                 float3 normal      : NORMAL;
+                float2 uv          : TEXCOORD0;
+                float  fogCoord    : TEXCOORD1;
+                float4 shadowCoord : TEXCOORD2;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             // Boid의 구조체
@@ -65,15 +71,17 @@
                 float3 position; // 위치
             };
 
+            //머터리얼마다 변경되는 값
             CBUFFER_START(UnityPerMaterial)
                 // Boid 데이터의 구조체 버퍼
                 StructuredBuffer<BoidData> _BoidDataBuffer;
 
                 sampler2D _MainTex; // 텍스처
+                float4 _MainTex_ST;
 
                 half   _Glossiness; // 광택
                 half   _Metallic;   // 금속특성
-                float3  _Color;      // 컬러
+                float4  _Color;      // 컬러
 
                 float3 _ObjectScale; // Boid 객체의 크기
             CBUFFER_END
@@ -119,23 +127,43 @@
                 float4x4 rotMatrix = eulerAnglesToRotationMatrix(float3(rotX, rotY, 0));
                 // 행렬에 회전을 적용
                 object2world = mul(rotMatrix, object2world);
-                // 행렬에 위치(평행이동)를 적용
+                // 행렬에 평행이동을 적용
                 object2world._14_24_34 += pos.xyz;
 
                 // 정점을 좌표 변환
-                //mul(object2world, IN.vertex);
                 OUT.vertex = mul(object2world, IN.vertex);
                 OUT.vertex = mul(UNITY_MATRIX_MVP, OUT.vertex);
+
                 // 법선을 좌표 변환
                 OUT.normal = normalize(mul(object2world, IN.normal));
                 OUT.color = IN.color;
+
+                //
+                OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+                OUT.fogCoord = ComputeFogFactor(OUT.vertex.z);
+
+                VertexPositionInputs vertexInput = GetVertexPositionInputs(IN.vertex.xyz);
+                OUT.shadowCoord = GetShadowCoord(vertexInput);
 
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                return half4(IN.color,1);
+                UNITY_SETUP_INSTANCE_ID(IN);
+
+                //Lighting Calculate(Lambert)
+                Light mainLight = GetMainLight(IN.shadowCoord);
+                float NdotL = saturate(dot(normalize(_MainLightPosition.xyz), IN.normal));
+                float3 ambient = SampleSH(IN.normal);
+
+                float4 col = tex2D(_MainTex, IN.uv) * _Color;
+                //below texture sampling code does not use in material inspector
+                //float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_Maintex, IN.uv);dd
+                
+                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation + ambient;
+                col.rgb = MixFog(col.rgb, IN.fogCoord);
+                return col;
             }
             ENDHLSL
         }
