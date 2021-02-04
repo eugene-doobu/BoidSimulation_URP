@@ -23,6 +23,12 @@
 Simplistic Low Poly Nature
 - https://assetstore.unity.com/packages/3d/environments/simplistic-low-poly-nature-93894
 
+Underwater Ambient
+- https://assetstore.unity.com/packages/audio/ambient/underwater-ambient-66498
+
+Underwater Skybox
+- https://jkhub.org/files/file/3216-underwater-skybox/
+
 ## Reference</br>
 https://github.com/IndieVisualLab/UnityGraphicsProgramming</br>
 - 第3章 群のシミュレーションのGPU実装
