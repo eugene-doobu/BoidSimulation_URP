@@ -13,6 +13,9 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Ignore Unity Store Assets
+/[Aa]ssets/UnityStoreAssets/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
