@@ -60,6 +60,8 @@ namespace BoidsSimulationOnGPU
         ComputeBuffer _boidForceBuffer;
         // Boid의 기본 데이터(속도, 위치)를 포함하는 버퍼
         ComputeBuffer _boidDataBuffer;
+        // 현재 Boid 데이터를 저장
+        BoidData[] currBoidDataArray;
         #endregion
 
         #region Accessors
@@ -119,6 +121,9 @@ namespace BoidsSimulationOnGPU
         // 버퍼 초기화
         void InitBuffer()
         {
+            // 보이드 데이터 어레이 배열생성
+            currBoidDataArray = new BoidData[MaxObjectNum];
+
             // 버퍼 초기화
             _boidDataBuffer = new ComputeBuffer(MaxObjectNum,
                 Marshal.SizeOf(typeof(BoidData)));
@@ -173,6 +178,12 @@ namespace BoidsSimulationOnGPU
             cs.SetBuffer(id, "_BoidForceBufferRead", _boidForceBuffer);
             cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
             cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
+
+            // 계산된 데이터 저장
+            this._boidDataBuffer.GetData(currBoidDataArray);
+            Debug.Log("@@@@@@@@@@@@@");
+            Debug.Log(currBoidDataArray[0].Position);
+            Debug.Log(currBoidDataArray[0].Velocity);
         }
 
         // 버퍼를 해제

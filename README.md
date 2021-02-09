@@ -41,3 +41,7 @@ Flocks, Herds, and Schools:A Distributed Behavioral Model
 Perception of Realistic Flocking Behavior in the Boid Algorithm
 - Bachelor Thesis Computer Science 10 2017
 - Max Larsson and Sebastian Lundgren
+
+Fish Swimming Animation
+- https://github.com/albertomelladoc/Fish-Animation/blob/master/FishAnimation.shader
+- https://www.bitshiftprogrammer.com/2018/01/how-to-animate-fish-swimming-with.html

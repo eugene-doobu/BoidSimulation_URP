@@ -93,6 +93,8 @@ namespace BoidsSimulationOnGPU
                 bounds,                 // 경계 영역
                 argsBuffer              // GPU 인스턴싱을 위한 인수의 버퍼
             );
+
+            // Debug.Log((uint)GPUBoidsScript.GetMaxObjectNum());
         }
         #endregion
     }
