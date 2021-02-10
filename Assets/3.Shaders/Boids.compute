@@ -20,6 +20,8 @@ RWStructuredBuffer<BoidData> _BoidDataBufferWrite;
 StructuredBuffer<float3>     _BoidForceBufferRead;
 // Boid의 조향력의 버퍼 (읽기, 쓰기용)
 RWStructuredBuffer<float3>   _BoidForceBufferWrite;
+// Obstacle 데이터 버퍼 (읽기용)
+StructuredBuffer<float3>  _ObstaclePosBufferRead;
 
 int _MaxBoidObjectNum; // Boid 개체 수
 
@@ -39,6 +41,7 @@ float _CohesionWeight;  // 결합 적용시 가중치
 float4 _WallCenter;      // 벽의 중심 좌표
 float4 _WallSize;        // 벽의 크기
 float  _AvoidWallWeight; // 벽을 피하는 강도의 무게
+float  _AvoidObstacleWeight; // 장애물을 피하는 강도의 무게
 
 
 // 벡터의 크기를 제한하기
@@ -48,6 +51,7 @@ float3 limit(float3 vec, float max)
 	return (length > max && length > 0) ? vec.xyz * (max / length) : vec.xyz;
 }
 
+// Todo: 원형으로 변환
 // 벽에 맞았을 때 반대 방향의 힘을 반환
 float3 avoidWall(float3 position)
 {
@@ -197,6 +201,7 @@ void IntegrateCS
 	
 	// 벽에 가까워지면 반발하는 힘을 부여한다
 	force += avoidWall(b.position) * _AvoidWallWeight; 
+	force += _ObstaclePosBufferRead[P_ID] * _AvoidObstacleWeight;
 
 	b.velocity += force * _DeltaTime;          // 조향력을 속도에 적용
 	b.velocity = limit(b.velocity, _MaxSpeed); // 속도를 제한
