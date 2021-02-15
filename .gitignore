@@ -1,20 +1,9 @@
-# Created by https://www.gitignore.io/api/unity,windows,visualstudio
-# Edit at https://www.gitignore.io/?templates=unity,windows,visualstudio
-
-### Unity ###
-# This .gitignore file should be placed at the root of your Unity project directory
-#
-# Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
-
-# Ignore Unity Store Assets
-/[Aa]ssets/UnityStoreAssets/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
 
 # Never ignore Asset meta data
 ![Aa]ssets/**/*.meta
