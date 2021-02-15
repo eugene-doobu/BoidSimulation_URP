@@ -45,3 +45,6 @@ Perception of Realistic Flocking Behavior in the Boid Algorithm
 Fish Swimming Animation
 - https://github.com/albertomelladoc/Fish-Animation/blob/master/FishAnimation.shader
 - https://www.bitshiftprogrammer.com/2018/01/how-to-animate-fish-swimming-with.html
+
+Volumetric Lighting
+- https://github.com/Unity-Technologies/VolumetricLighting
