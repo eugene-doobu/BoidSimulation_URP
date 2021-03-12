@@ -15,6 +15,17 @@
 ## Contact</br>
 인서타
 
+## included packages
+깃허브 저장소 프로젝트에 포함되어있는 패키지와 에셋들입니다.
+별도로 설치하지 않으셔도 됩니다.
+
+Dotween(Free ver)
+- https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
+
+UniRx
+- https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276
+
+
 ## Asset Store Assets</br>
 
 유니티 에셋스토어에서 받은 무료에셋들은 깃허브 저장소에 포함되지 않도록 설정하였습니다. 이 프로젝트를 다운받아 영상과 같은 테스트를 하기 위해서는 아래 에셋들이 필요합니다.
