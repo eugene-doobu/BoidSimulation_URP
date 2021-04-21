@@ -39,9 +39,11 @@ Underwater Ambient
 Underwater Skybox
 - https://jkhub.org/files/file/3216-underwater-skybox/
 
+D2og - CameraController
+https://assetstore.unity.com/packages/tools/camera/cameracontroller-141370
+
 Mordern UI Pack(20$)
 - https://assetstore.unity.com/packages/tools/gui/modern-ui-pack-150824
-
 
 ## Reference</br>
 https://github.com/IndieVisualLab/UnityGraphicsProgramming</br>
