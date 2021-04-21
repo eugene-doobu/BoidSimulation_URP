@@ -27,8 +27,7 @@ UniRx
 
 
 ## Asset Store Assets</br>
-
-유니티 에셋스토어에서 받은 무료에셋들은 깃허브 저장소에 포함되지 않도록 설정하였습니다. 이 프로젝트를 다운받아 영상과 같은 테스트를 하기 위해서는 아래 에셋들이 필요합니다.
+유니티 에셋스토어에서 받은 에셋들은 깃허브 저장소에 포함되지 않도록 설정하였습니다. 이 프로젝트를 다운받아 영상과 같은 테스트를 하기 위해서는 아래 에셋들이 필요합니다.
 
 대충 이미지
 Simplistic Low Poly Nature
@@ -39,6 +38,10 @@ Underwater Ambient
 
 Underwater Skybox
 - https://jkhub.org/files/file/3216-underwater-skybox/
+
+Mordern UI Pack(20$)
+- https://assetstore.unity.com/packages/tools/gui/modern-ui-pack-150824
+
 
 ## Reference</br>
 https://github.com/IndieVisualLab/UnityGraphicsProgramming</br>
