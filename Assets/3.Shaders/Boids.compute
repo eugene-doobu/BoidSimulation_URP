@@ -58,6 +58,7 @@ float3 avoidWall(float3 position)
 	float3 wc = _WallCenter.xyz;
 	float3 ws = _WallSize.xyz;
 	float3 acc = float3(0, 0, 0);
+	
 	// x
 	acc.x = (position.x < wc.x - ws.x * 0.5) ? acc.x + 1.0 : acc.x;
 	acc.x = (position.x > wc.x + ws.x * 0.5) ? acc.x - 1.0 : acc.x;
@@ -69,7 +70,6 @@ float3 avoidWall(float3 position)
 	// z
 	acc.z = (position.z < wc.z - ws.z * 0.5) ? acc.z + 1.0 : acc.z;
 	acc.z = (position.z > wc.z + ws.z * 0.5) ? acc.z - 1.0 : acc.z;
-
 	return acc;
 }
 
