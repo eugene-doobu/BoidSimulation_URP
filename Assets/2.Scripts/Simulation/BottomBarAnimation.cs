@@ -27,14 +27,15 @@ public class BottomBarAnimation : MonoBehaviour
         group_panelsTr = tr.Find("Group_panels");
         panels = group_panelsTr.GetComponentsInChildren<Text>();
         selectedTr = tr.Find("img_selected");
+        BtnsAddEventPanel();
     }
 
     void Start()
     {
         // 씬이 로딩되고 일정 시간동안 UI의 Transfrom값이 불안정함
         // 원인 파악이 안되어 일단은 상수값 입력 ㅡ       
-        // 상수값은 화면 전체 가로 넓이에서 첫번째 패널의 중앙값의 위치 비율
-        selectedPos.Value = 0.2475f * Screen.width;
+        // 상수값은 화면 전체 가로 넓이에서 첫번째 패널의 중앙값의 위치 비율    
+        selectedPos.Value = 0.2205f * Screen.width;
 
         // 버튼 클릭시 selected mark 이동
         selectedPos
@@ -47,8 +48,21 @@ public class BottomBarAnimation : MonoBehaviour
                 // 플레이어 이동 애니메이션 이벤트
             });
     }
-
     #endregion
+
+    /// <summary>
+    /// 씬의 패널 버튼에 OnPanelSelect이벤트를 연결하는 함수
+    /// </summary>
+    void BtnsAddEventPanel()
+    {
+        foreach(var panel in panels)
+        {
+            var btn = panel.GetComponent<Button>();
+            btn.onClick.AddListener(delegate {
+                OnPanelSelect(btn.transform);
+            });
+        }
+    }
 
     /// <summary>
     /// 모든 버튼들의 enable을 동시 처리해주는 함수
