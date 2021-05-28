@@ -30,14 +30,13 @@ Dotween(Free ver)
 UniRx
 - https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276
 
+EntityComponentSystemSamples(model만 사용)
+- https://github.com/Unity-Technologies/EntityComponentSystemSamples
 
 ## Asset Store Assets</br>
 유니티 에셋스토어에서 받은 에셋들은 깃허브 저장소에 포함되지 않도록 설정하였습니다. 이 프로젝트를 다운받아 영상과 같은 테스트를 하기 위해서는 아래 에셋들이 필요합니다.
 
 대충 이미지
-Simplistic Low Poly Nature
-- https://assetstore.unity.com/packages/3d/environments/simplistic-low-poly-nature-93894
-
 Underwater Ambient
 - https://assetstore.unity.com/packages/audio/ambient/underwater-ambient-66498
 
@@ -45,7 +44,7 @@ Underwater Skybox
 - https://jkhub.org/files/file/3216-underwater-skybox/
 
 D2og - CameraController
-https://assetstore.unity.com/packages/tools/camera/cameracontroller-141370
+- https://assetstore.unity.com/packages/tools/camera/cameracontroller-141370
 
 Mordern UI Pack(20$)
 - https://assetstore.unity.com/packages/tools/gui/modern-ui-pack-150824

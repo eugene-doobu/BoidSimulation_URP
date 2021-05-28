@@ -976,7 +976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectScale: {x: 0.1, y: 0.2, z: 0.25}
   GPUBoidsScript: {fileID: 583646682}
-  InstanceMesh: {fileID: 4300000, guid: 9c690660684b5494c88ac61e360783d1, type: 3}
+  InstanceMesh: {fileID: 4300000, guid: 49a87e3402ce60f4eba9b0498164bdd5, type: 3}
   InstanceRenderMaterial: {fileID: 2100000, guid: 0f4831a26a2bd924d85535f6eda3bdde, type: 2}
 --- !u!4 &583646681
 Transform:
