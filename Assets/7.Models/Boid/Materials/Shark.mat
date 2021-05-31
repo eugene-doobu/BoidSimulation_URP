@@ -8,20 +8,19 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shark
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 2d0dc5dc0e4eba045aea032363158f43, type: 3}
+  m_ShaderKeywords: _METALLICSPECGLOSSMAP
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b2247669f47524a42964e87e491cd0fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -53,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 811f9db5e9a332845818d2391156f191, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -87,6 +86,9 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _Amount: 0.75
+    - _AmplitudeX: 0.155
+    - _AmplitudeY: 0.152
+    - _AmplitudeZ: 1.04
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -98,9 +100,13 @@ Material:
     - _Distance: 0.3
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FrequencyX: 1
+    - _FrequencyY: 1
+    - _FrequencyZ: 0.2
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 1
+    - _HeadLimit: 0.05
     - _Metallic: 0.063
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -110,6 +116,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpeedX: 1
+    - _SpeedY: 2.4
+    - _SpeedZ: 2.5
     - _SrcBlend: 1
     - _Surface: 0
     - _TimeScale: 10
