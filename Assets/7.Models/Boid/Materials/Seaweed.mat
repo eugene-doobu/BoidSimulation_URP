@@ -86,8 +86,8 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _Amount: 1
-    - _AmplitudeX: 1
-    - _AmplitudeY: 1
+    - _AmplitudeX: 0.0238
+    - _AmplitudeY: 0.1466
     - _AmplitudeZ: 1
     - _Blend: 0
     - _BumpScale: 1
