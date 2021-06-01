@@ -12,6 +12,7 @@
 Shader "Custom/FishAnimation" {
 	Properties{
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
+		_Color ("Color", Color) = (1,1,1,1)
 		_SpeedX("SpeedX", Range(0, 10)) = 1
 		_FrequencyX("FrequencyX", Range(0, 10)) = 1
 		_AmplitudeX("AmplitudeX", Range(0, 0.2)) = 1
@@ -23,84 +24,71 @@ Shader "Custom/FishAnimation" {
 		_AmplitudeZ("AmplitudeZ", Range(0,  2)) = 1
 		_HeadLimit("HeadLimit", Range(-2,  2)) = 0.05
 	}
-		SubShader{
-		Tags{ "RenderType" = "Opaque" }
-		Cull off
-
+	SubShader{
+	Tags{ "RenderType" = "Opaque" }
+	Cull off
 		Pass{
 
-		CGPROGRAM
-	#pragma vertex vert
-	#pragma fragment frag
-	#include "UnityCG.cginc"
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#include "UnityCG.cginc"
 
-	sampler2D _MainTex;
-	float4 _MainTex_ST;
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			fixed4 _Color;
 
-	struct v2f {
-		float4 pos : SV_POSITION;
-		float2 uv : TEXCOORD0;
-	};
+			struct v2f {
+				float4 pos : SV_POSITION;
+				float2 uv : TEXCOORD0;
+			};
 	
-	// X AXIS
-
-	float _SpeedX;
-	float _FrequencyX;
-	float _AmplitudeX;
+			// X AXIS
+			float _SpeedX;
+			float _FrequencyX;
+			float _AmplitudeX;
 	
-	// Y AXIS
+			// Y AXIS
+			float _SpeedY;
+			float _FrequencyY;
+			float _AmplitudeY;
 
-	float _SpeedY;
-	float _FrequencyY;
-	float _AmplitudeY;
+			// Z AXIS
+			float _SpeedZ;
+			float _FrequencyZ;
+			float _AmplitudeZ;
 
-	// Z AXIS
+			// Head Limit (Head wont shake so much)
 	
-	float _SpeedZ;
-	float _FrequencyZ;
-	float _AmplitudeZ;
+			float _HeadLimit;
 
-	// Head Limit (Head wont shake so much)
-	
-	float _HeadLimit;
+			v2f vert(appdata_base v)
+			{
+				v2f o;
+				//Z AXIS
+				v.vertex.z += sin((v.vertex.z + _Time.y * _SpeedX) * _FrequencyX)* _AmplitudeX;		
+				//Y AXIS
+				v.vertex.y += sin((v.vertex.z + _Time.y * _SpeedY) * _FrequencyY)* _AmplitudeY;
+				//X AXIS
+				if (v.vertex.z > _HeadLimit)
+				{
+					v.vertex.x += sin((0.05 + _Time.y * _SpeedZ) * _FrequencyZ)* _AmplitudeZ * _HeadLimit;
+				}
+				else
+				{
+					v.vertex.x += sin((v.vertex.z + _Time.y * _SpeedZ) * _FrequencyZ)* _AmplitudeZ * v.vertex.z;
+				}
+				o.pos = UnityObjectToClipPos(v.vertex);
+				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+				return o;
+			}
 
-	v2f vert(appdata_base v)
-	{
-		v2f o;
-
-		//Z AXIS
-
-		v.vertex.z += sin((v.vertex.z + _Time.y * _SpeedX) * _FrequencyX)* _AmplitudeX;		
-
-		//Y AXIS
-
-		v.vertex.y += sin((v.vertex.z + _Time.y * _SpeedY) * _FrequencyY)* _AmplitudeY;
-
-		//X AXIS
-
-		if (v.vertex.z > _HeadLimit)
-		{
-			v.vertex.x += sin((0.05 + _Time.y * _SpeedZ) * _FrequencyZ)* _AmplitudeZ * _HeadLimit;
-		}
-		else
-		{
-			v.vertex.x += sin((v.vertex.z + _Time.y * _SpeedZ) * _FrequencyZ)* _AmplitudeZ * v.vertex.z;
-		}
-
-		o.pos = UnityObjectToClipPos(v.vertex);
-		o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-		return o;
-		
-	}
-
-	fixed4 frag(v2f i) : SV_Target
-	{
-		return tex2D(_MainTex, i.uv);
-	}
-
+			fixed4 frag(v2f i) : SV_Target
+			{
+				return tex2D(_MainTex, i.uv) * _Color;
+			}
 		ENDCG
-
+		}
 	}
-	}
-		FallBack "Diffuse"
+	FallBack "Diffuse"
 }
