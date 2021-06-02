@@ -20,7 +20,7 @@ on:
 env:
   # Require unity test
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  UNITY_VERSION: 2019.3.8f1
+  UNITY_VERSION: 2020.2.1f1
 
   # require Deploy
   SRC_BRANCH: workspace
