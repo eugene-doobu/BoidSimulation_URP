@@ -27,7 +27,10 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "DOTween.dll",
+        "ICSharpCode.NRefactory.dll",
+        "DOTweenEditor.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
