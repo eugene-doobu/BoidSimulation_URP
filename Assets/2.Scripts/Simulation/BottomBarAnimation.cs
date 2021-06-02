@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using UniRx;
 using System;
 
@@ -43,8 +42,8 @@ public class BottomBarAnimation : MonoBehaviour
             .Subscribe(_ =>
             {
                 BtnsEnable(false);
-                selectedTr.DOMoveX(selectedPos.Value, 1f)
-                    .OnComplete(() => BtnsEnable(true));
+                //selectedTr.DOMoveX(selectedPos.Value, 1f)
+                //    .OnComplete(() => BtnsEnable(true));
                 // 플레이어 이동 애니메이션 이벤트
             });
     }

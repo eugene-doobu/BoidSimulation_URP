@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+//using DG.Tweening;
 
 public class CameraMoveToObject : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class CameraMoveToObject : MonoBehaviour
     {
         float duration = 1f;
 
-        tr.DORotate(objTr.rotation.eulerAngles, duration, RotateMode.Fast);
-        tr.DOMove(objTr.position, duration);
+        //tr.DORotate(objTr.rotation.eulerAngles, duration, RotateMode.Fast);
+        //tr.DOMove(objTr.position, duration);
     }
 }
