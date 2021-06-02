@@ -24,13 +24,13 @@
         "WindowsStandalone64",
         "XboxOne"
     ],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
         "DOTween.dll",
+        "DOTweenEditor.dll",
         "ICSharpCode.NRefactory.dll",
-        "DOTweenEditor.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
