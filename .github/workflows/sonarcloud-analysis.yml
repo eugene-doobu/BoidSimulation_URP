@@ -11,7 +11,7 @@ name: CI_SONAR_CLOUD
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'doc/**'
       - '*.md'
