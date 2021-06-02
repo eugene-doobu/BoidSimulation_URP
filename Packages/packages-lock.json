@@ -131,6 +131,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unko.unity-builder": {
+      "version": "https://github.com/unity-korea-community/unity-builder.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c98ebbfd43a090347f927978fae0e7953ba8a2b1"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
