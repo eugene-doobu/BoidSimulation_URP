@@ -60,48 +60,41 @@ namespace BoidsSimulationOnGPU
         #region Private Functions
         void RenderInstancedMesh()
         {
-            try
-            {
-                // 렌더링용 메터리얼이 Null 또는 GPUBoids 스크립트가 Null,
-                // 또는 GPU 인스턴싱이 지원되지 않으면 처리를 하지 않는다.
-                if (InstanceRenderMaterial == null || GPUBoidsScript == null ||
-                    !SystemInfo.supportsInstancing)
-                    return;
+            // 렌더링용 메터리얼이 Null 또는 GPUBoids 스크립트가 Null,
+            // 또는 GPU 인스턴싱이 지원되지 않으면 처리를 하지 않는다.
+            if (InstanceRenderMaterial == null || GPUBoidsScript == null ||
+                !SystemInfo.supportsInstancing)
+                return;
 
-                // 지정한 메쉬의 인덱스 가져오기
-                uint numIndices = (InstanceMesh != null) ?
-                    (uint)InstanceMesh.GetIndexCount(0) : 0;
-                args[0] = numIndices; // 메쉬의 인덱스 수를 설정(초기화)
-                args[1] = (uint)GPUBoidsScript.GetMaxObjectNum(); // 인스턴수 수 초기화
-                argsBuffer.SetData(args); // 버퍼에 설정(초기화)
+            // 지정한 메쉬의 인덱스 가져오기
+            uint numIndices = (InstanceMesh != null) ?
+                (uint)InstanceMesh.GetIndexCount(0) : 0;
+            args[0] = numIndices; // 메쉬의 인덱스 수를 설정(초기화)
+            args[1] = (uint)GPUBoidsScript.GetMaxObjectNum(); // 인스턴수 수 초기화
+            argsBuffer.SetData(args); // 버퍼에 설정(초기화)
 
-                // Boid 데이터를 저장하는 버퍼를 메터리얼에 설정(초기화)
-                InstanceRenderMaterial.SetBuffer("_BoidDataBuffer",
-                    GPUBoidsScript.GetBoidDataBuffer());
-                // Boid 객체 스케일을 설정(초기화)
-                InstanceRenderMaterial.SetVector("_ObjectScale", ObjectScale);
-                // 境界領域を定義
-                var bounds = new Bounds
-                (
-                    GPUBoidsScript.GetSimulationAreaCenter(), // 중심
-                    GPUBoidsScript.GetSimulationAreaSize()    // 크기
-                );
-                // 메쉬를 GPU 인스턴싱하여 그리기
-                Graphics.DrawMeshInstancedIndirect
-                (
-                    InstanceMesh,           // 인스턴싱하는 메쉬
-                    0,                      // submesh 인덱스
-                    InstanceRenderMaterial, // 그리기를 할 메터리얼
-                    bounds,                 // 경계 영역
-                    argsBuffer              // GPU 인스턴싱을 위한 인수의 버퍼
-                );
+            // Boid 데이터를 저장하는 버퍼를 메터리얼에 설정(초기화)
+            InstanceRenderMaterial.SetBuffer("_BoidDataBuffer",
+                GPUBoidsScript.GetBoidDataBuffer());
+            // Boid 객체 스케일을 설정(초기화)
+            InstanceRenderMaterial.SetVector("_ObjectScale", ObjectScale);
+            // 境界領域を定義
+            var bounds = new Bounds
+            (
+                GPUBoidsScript.GetSimulationAreaCenter(), // 중심
+                GPUBoidsScript.GetSimulationAreaSize()    // 크기
+            );
+            // 메쉬를 GPU 인스턴싱하여 그리기
+            Graphics.DrawMeshInstancedIndirect
+            (
+                InstanceMesh,           // 인스턴싱하는 메쉬
+                0,                      // submesh 인덱스
+                InstanceRenderMaterial, // 그리기를 할 메터리얼
+                bounds,                 // 경계 영역
+                argsBuffer              // GPU 인스턴싱을 위한 인수의 버퍼
+            );
 
-                // Debug.Log((uint)GPUBoidsScript.GetMaxObjectNum());
-            }
-            catch
-            {
-                Debug.Log("Fail RenderInstancedMesh()");
-            }
+            // Debug.Log((uint)GPUBoidsScript.GetMaxObjectNum());
         }
         #endregion
     }

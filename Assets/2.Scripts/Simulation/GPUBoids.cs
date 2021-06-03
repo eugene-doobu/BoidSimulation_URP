@@ -164,76 +164,69 @@ namespace BoidsSimulationOnGPU
 
             // 스레드그룹 수를 구하기
             int threadGroupSize = Mathf.CeilToInt(MaxObjectNum / SIMULATION_BLOCK_SIZE);
-            try
-            {
-
                 // 조향력을 계산
-                id = cs.FindKernel("ForceCS"); // 커널 ID를 가져옴
-                cs.SetInt("_MaxBoidObjectNum", MaxObjectNum);
-                cs.SetFloat("_CohesionNeighborhoodRadius", CohesionNeighborhoodRadius);
-                cs.SetFloat("_AlignmentNeighborhoodRadius", AlignmentNeighborhoodRadius);
-                cs.SetFloat("_SeparateNeighborhoodRadius", SeparateNeighborhoodRadius);
-                cs.SetFloat("_MaxSpeed", MaxSpeed);
-                cs.SetFloat("_MaxSteerForce", MaxSteerForce);
-                cs.SetFloat("_SeparateWeight", SeparateWeight);
-                cs.SetFloat("_CohesionWeight", CohesionWeight);
-                cs.SetFloat("_AlignmentWeight", AlignmentWeight);
-                cs.SetVector("_WallCenter", WallCenter);
-                cs.SetVector("_WallSize", WallSize);
-                cs.SetFloat("_AvoidWallWeight", AvoidWallWeight);
-                cs.SetFloat("_AvoidObstacleWeight", AvoidObstacleWeight);
-                cs.SetBuffer(id, "_BoidDataBufferRead", _boidDataBuffer);
-                cs.SetBuffer(id, "_BoidForceBufferWrite", _boidForceBuffer);
-                cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
+            id = cs.FindKernel("ForceCS"); // 커널 ID를 가져옴
+            cs.SetInt("_MaxBoidObjectNum", MaxObjectNum);
+            cs.SetFloat("_CohesionNeighborhoodRadius", CohesionNeighborhoodRadius);
+            cs.SetFloat("_AlignmentNeighborhoodRadius", AlignmentNeighborhoodRadius);
+            cs.SetFloat("_SeparateNeighborhoodRadius", SeparateNeighborhoodRadius);
+            cs.SetFloat("_MaxSpeed", MaxSpeed);
+            cs.SetFloat("_MaxSteerForce", MaxSteerForce);
+            cs.SetFloat("_SeparateWeight", SeparateWeight);
+            cs.SetFloat("_CohesionWeight", CohesionWeight);
+            cs.SetFloat("_AlignmentWeight", AlignmentWeight);
+            cs.SetVector("_WallCenter", WallCenter);
+            cs.SetVector("_WallSize", WallSize);
+            cs.SetFloat("_AvoidWallWeight", AvoidWallWeight);
+            cs.SetFloat("_AvoidObstacleWeight", AvoidObstacleWeight);
+            cs.SetBuffer(id, "_BoidDataBufferRead", _boidDataBuffer);
+            cs.SetBuffer(id, "_BoidForceBufferWrite", _boidForceBuffer);
+            cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
 
 
-                // 계산된 조항력으로부터 속도와 위치를 업데이트
-                id = cs.FindKernel("IntegrateCS"); // 커널 ID를 가져옴
+            // 계산된 조항력으로부터 속도와 위치를 업데이트
+            id = cs.FindKernel("IntegrateCS"); // 커널 ID를 가져옴
 
-                // 계산된 데이터 저장
-                this._boidDataBuffer.GetData(currBoidDataArray);
+            // 계산된 데이터 저장
+            this._boidDataBuffer.GetData(currBoidDataArray);
 
-                // 장애물 회피 계산
-                var obstacleArr = new Vector3[MaxObjectNum];
-                for (int i = 0; i < MaxObjectNum; i++)
-                {
-                    RaycastHit hit;
-                    if (Physics.Raycast(currBoidDataArray[i].Position,
-                        currBoidDataArray[i].Velocity,
-                        out hit,
-                        AvoidObstacleDistance))
-                    {
-#if RaycastOn
-                    Debug.DrawRay(currBoidDataArray[i].Position,
-                        currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
-                        Color.red);
-#endif
-                        obstacleArr[i] = Vector3.Normalize(currBoidDataArray[i].Position - hit.point);
-                    }
-                    else
-                    {
-#if RaycastOn
-                    Debug.DrawRay(currBoidDataArray[i].Position,
-                        currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
-                        Color.green);
-#endif
-                        obstacleArr[i] = Vector3.zero;
-                    }
-                }
-
-                // 컴퓨트 셰이더에 데이터 입력
-                _obstacleDataBuffer.SetData(obstacleArr);
-                cs.SetFloat("_DeltaTime", Time.deltaTime);
-                cs.SetBuffer(id, "_ObstaclePosBufferRead", _obstacleDataBuffer);
-                cs.SetBuffer(id, "_BoidForceBufferRead", _boidForceBuffer);
-                cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
-                cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
-                obstacleArr = null;
-            }
-            catch
+            // 장애물 회피 계산
+            var obstacleArr = new Vector3[MaxObjectNum];
+            for (int i = 0; i < MaxObjectNum; i++)
             {
-                Debug.Log("Fail Simulation()");
+                RaycastHit hit;
+                if (Physics.Raycast(currBoidDataArray[i].Position,
+                    currBoidDataArray[i].Velocity,
+                    out hit,
+                    AvoidObstacleDistance))
+                {
+#if RaycastOn
+                Debug.DrawRay(currBoidDataArray[i].Position,
+                    currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
+                    Color.red);
+#endif
+                    obstacleArr[i] = Vector3.Normalize(currBoidDataArray[i].Position - hit.point);
+                }
+                else
+                {
+#if RaycastOn
+                Debug.DrawRay(currBoidDataArray[i].Position,
+                    currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
+                    Color.green);
+#endif
+                    obstacleArr[i] = Vector3.zero;
+                }
             }
+
+            // 컴퓨트 셰이더에 데이터 입력
+            _obstacleDataBuffer.SetData(obstacleArr);
+            cs.SetFloat("_DeltaTime", Time.deltaTime);
+            cs.SetBuffer(id, "_ObstaclePosBufferRead", _obstacleDataBuffer);
+            cs.SetBuffer(id, "_BoidForceBufferRead", _boidForceBuffer);
+            cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
+            cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
+            obstacleArr = null;
+            Debug.Log("Fail Simulation()");
         }
 
         // 버퍼를 해제
