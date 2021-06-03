@@ -17,7 +17,7 @@ public class SimulationManager : MonoBehaviour
     }
     public CameraOperate CameraOperate
     {
-        get { return CameraOperate; }
+        get { return cameraOperate; }
     }
     #endregion
 

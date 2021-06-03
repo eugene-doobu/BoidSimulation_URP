@@ -17,6 +17,11 @@ public class BottomBarAnimation : MonoBehaviour
 
     ReactiveProperty<float> selectedPos = new ReactiveProperty<float>(0);
     Transform selectedTr;
+
+    public float SelectedPos
+    {
+        get { return selectedPos.Value; }
+    }
     #endregion
 
     #region Unity Event Funcs
@@ -61,6 +66,7 @@ public class BottomBarAnimation : MonoBehaviour
             btn.onClick.AddListener(delegate {
                 OnPanelSelect(btn.transform);
             });
+            btn.interactable = true;
         }
     }
 
@@ -80,6 +86,6 @@ public class BottomBarAnimation : MonoBehaviour
 
     public void OnPanelSelect(Transform _tr)
     {
-        //selectedPos.Value = _tr.position.x;
+        selectedPos.Value = _tr.position.x;
     }
 }

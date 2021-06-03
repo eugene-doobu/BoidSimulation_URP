@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿//#define RaycastOn
+using UnityEngine;
 using System.Runtime.InteropServices;
 
 namespace BoidsSimulationOnGPU
@@ -202,20 +201,20 @@ namespace BoidsSimulationOnGPU
                     out hit,
                     AvoidObstacleDistance))
                 {
-                    /*
+#if RaycastOn
                     Debug.DrawRay(currBoidDataArray[i].Position,
                         currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
                         Color.red);
-                    */
+#endif
                     obstacleArr[i] = Vector3.Normalize(currBoidDataArray[i].Position - hit.point);
                 }
                 else
                 {
-                    /*
+#if RaycastOn
                     Debug.DrawRay(currBoidDataArray[i].Position,
                         currBoidDataArray[i].Velocity.normalized * AvoidObstacleDistance,
                         Color.green);
-                    */
+#endif
                     obstacleArr[i] = Vector3.zero;
                 }
             }
@@ -250,6 +249,6 @@ namespace BoidsSimulationOnGPU
                 _obstacleDataBuffer = null;
             }
         }
-        #endregion
+#endregion
     } // class
 } // namespace
