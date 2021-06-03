@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class ButtonFuncs : MonoBehaviour
+namespace BoidsSimulationOnGPU
 {
-    public void OnLobbyButton()
+    public class ButtonFuncs : MonoBehaviour
     {
-        SceneManager.LoadScene("1.Scenes/Lobby");
-    }
+        public void OnLobbyButton()
+        {
+            SceneManager.LoadScene("1.Scenes/Lobby");
+        }
 
-    public void OnSimulationButton()
-    {
-        SceneManager.LoadScene("1.Scenes/BoidsSimulationOnGPU");
-    }
+        public void OnSimulationButton()
+        {
+            SceneManager.LoadScene("1.Scenes/BoidsSimulationOnGPU");
+        }
 
-    public void OnExitButton()
-    {
-        Application.Quit();
+        public void OnExitButton()
+        {
+            Application.Quit();
+        }
     }
 }

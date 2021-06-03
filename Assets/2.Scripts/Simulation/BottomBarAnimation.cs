@@ -6,86 +6,90 @@ using UniRx;
 using DG.Tweening;
 using System;
 
-public class BottomBarAnimation : MonoBehaviour
+namespace BoidsSimulationOnGPU
 {
-    #region variables
-    Transform tr;
-
-    // group_panels part
-    Transform group_panelsTr;
-    Text[] panels;
-
-    ReactiveProperty<float> selectedPos = new ReactiveProperty<float>(0);
-    Transform selectedTr;
-
-    public float SelectedPos
+    public class BottomBarAnimation : MonoBehaviour
     {
-        get { return selectedPos.Value; }
-    }
-    #endregion
+        #region variables
+        Transform tr;
 
-    #region Unity Event Funcs
-    private void Awake()
-    {
-        // Find Objs
-        tr = GetComponent<Transform>();
-        group_panelsTr = tr.Find("Group_panels");
-        panels = group_panelsTr.GetComponentsInChildren<Text>();
-        selectedTr = tr.Find("img_selected");
-        BtnsAddEventPanel();
-    }
+        // group_panels part
+        Transform group_panelsTr;
+        Text[] panels;
 
-    void Start()
-    {
-        // 씬이 로딩되고 일정 시간동안 UI의 Transfrom값이 불안정함
-        // 원인 파악이 안되어 일단은 상수값 입력 ㅡ       
-        // 상수값은 화면 전체 가로 넓이에서 첫번째 패널의 중앙값의 위치 비율    
-        selectedPos.Value = 0.2205f * Screen.width;
+        ReactiveProperty<float> selectedPos = new ReactiveProperty<float>(0);
+        Transform selectedTr;
 
-        // 버튼 클릭시 selected mark 이동
-        selectedPos
-            .ThrottleFirst(TimeSpan.FromSeconds(1))
-            .Subscribe(_ =>
+        public float SelectedPos
+        {
+            get { return selectedPos.Value; }
+        }
+        #endregion
+
+        #region Unity Event Funcs
+        private void Awake()
+        {
+            // Find Objs
+            tr = GetComponent<Transform>();
+            group_panelsTr = tr.Find("Group_panels");
+            panels = group_panelsTr.GetComponentsInChildren<Text>();
+            selectedTr = tr.Find("img_selected");
+            BtnsAddEventPanel();
+        }
+
+        void Start()
+        {
+            // 씬이 로딩되고 일정 시간동안 UI의 Transfrom값이 불안정함
+            // 원인 파악이 안되어 일단은 상수값 입력 ㅡ       
+            // 상수값은 화면 전체 가로 넓이에서 첫번째 패널의 중앙값의 위치 비율    
+            selectedPos.Value = 0.2205f * Screen.width;
+
+            // 버튼 클릭시 selected mark 이동
+            selectedPos
+                .ThrottleFirst(TimeSpan.FromSeconds(1))
+                .Subscribe(_ =>
+                {
+                    BtnsEnable(false);
+                    selectedTr.DOMoveX(selectedPos.Value, 1f)
+                        .OnComplete(() => BtnsEnable(true));
+                    // 플레이어 이동 애니메이션 이벤트
+                });
+        }
+        #endregion
+
+        /// <summary>
+        /// 씬의 패널 버튼에 OnPanelSelect이벤트를 연결하는 함수
+        /// </summary>
+        void BtnsAddEventPanel()
+        {
+            foreach (var panel in panels)
             {
-                BtnsEnable(false);
-                selectedTr.DOMoveX(selectedPos.Value, 1f)
-                    .OnComplete(() => BtnsEnable(true));
-                // 플레이어 이동 애니메이션 이벤트
-            });
-    }
-    #endregion
-
-    /// <summary>
-    /// 씬의 패널 버튼에 OnPanelSelect이벤트를 연결하는 함수
-    /// </summary>
-    void BtnsAddEventPanel()
-    {
-        foreach(var panel in panels)
-        {
-            var btn = panel.GetComponent<Button>();
-            btn.onClick.AddListener(delegate {
-                OnPanelSelect(btn.transform);
-            });
-            btn.interactable = true;
+                var btn = panel.GetComponent<Button>();
+                btn.onClick.AddListener(delegate
+                {
+                    OnPanelSelect(btn.transform);
+                });
+                btn.interactable = true;
+            }
         }
-    }
 
-    /// <summary>
-    /// 모든 버튼들의 enable을 동시 처리해주는 함수
-    /// 버튼에 직접 접근하면 Animation State가 깨지므로, 
-    /// Text에 접근하여 Raycast Target을 비활성화해줌
-    /// </summary>
-    /// <param name="state"> 버튼에 적용할 enable state</param>
-    void BtnsEnable(bool state)
-    {
-        foreach (var txt in panels)
+        /// <summary>
+        /// 모든 버튼들의 enable을 동시 처리해주는 함수
+        /// 버튼에 직접 접근하면 Animation State가 깨지므로, 
+        /// Text에 접근하여 Raycast Target을 비활성화해줌
+        /// </summary>
+        /// <param name="state"> 버튼에 적용할 enable state</param>
+        void BtnsEnable(bool state)
         {
-            txt.raycastTarget = state;
+            foreach (var txt in panels)
+            {
+                txt.raycastTarget = state;
+            }
         }
-    }
 
-    public void OnPanelSelect(Transform _tr)
-    {
-        selectedPos.Value = _tr.position.x;
+        public void OnPanelSelect(Transform _tr)
+        {
+            selectedPos.Value = _tr.position.x;
+        }
     }
 }

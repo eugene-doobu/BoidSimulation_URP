@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using BoidsSimulationOnGPU;
 
-public class SimulationManager : MonoBehaviour
+namespace BoidsSimulationOnGPU
 {
-    public static SimulationManager instance;
-
-    [SerializeField] GPUBoids gPUBoids;
-    [SerializeField] CameraOperate cameraOperate;
-
-    #region Properties
-    public GPUBoids GPUBoids
+    public class SimulationManager : MonoBehaviour
     {
-        get { return gPUBoids; }
-    }
-    public CameraOperate CameraOperate
-    {
-        get { return cameraOperate; }
-    }
-    #endregion
+        public static SimulationManager instance;
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
+        [SerializeField] GPUBoids gPUBoids;
+        [SerializeField] CameraOperate cameraOperate;
+
+        #region Properties
+        public GPUBoids GPUBoids
+        {
+            get { return gPUBoids; }
+        }
+        public CameraOperate CameraOperate
+        {
+            get { return cameraOperate; }
+        }
+        #endregion
+
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(gameObject);
+        }
     }
 }

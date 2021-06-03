@@ -6,43 +6,46 @@ using BoidsSimulationOnGPU;
 using SaveData;
 using System.Text;
 
-public class FileManager : MonoBehaviour
+namespace Common
 {
-    GPUBoids gPUBoids;
-    CameraOperate cameraOperate;
-
-    private const string simulationSettingFile = "SimulationSetting.json";
-    private const string playerSettingFile = "PlayerSetting.json";
-    private string simulationSettingPath = null;
-    private string playerSettingPath = null;
-
-    private void Awake()
+    public class FileManager : MonoBehaviour
     {
-        simulationSettingPath = Path.Combine(Application.persistentDataPath, simulationSettingFile);
-        playerSettingPath     = Path.Combine(Application.persistentDataPath, playerSettingFile);
-    }
+        GPUBoids gPUBoids;
+        CameraOperate cameraOperate;
 
-    void Start()
-    {
-        gPUBoids      = SimulationManager.instance.GPUBoids;
-        cameraOperate = SimulationManager.instance.CameraOperate;
-        StartCoroutine(ReadFile());
-    }
+        private const string simulationSettingFile = "SimulationSetting.json";
+        private const string playerSettingFile = "PlayerSetting.json";
+        private string simulationSettingPath = null;
+        private string playerSettingPath = null;
 
-    IEnumerator ReadFile()
-    {
-        // 타이밍: Start+1
-        yield return null;
-        GetScript();
-        FileInfo fileInfo;
-    }
+        private void Awake()
+        {
+            simulationSettingPath = Path.Combine(Application.persistentDataPath, simulationSettingFile);
+            playerSettingPath = Path.Combine(Application.persistentDataPath, playerSettingFile);
+        }
 
-    private void GetScript()
-    {
-        if (SimulationManager.instance != null)
+        void Start()
         {
             gPUBoids = SimulationManager.instance.GPUBoids;
             cameraOperate = SimulationManager.instance.CameraOperate;
+            StartCoroutine(ReadFile());
+        }
+
+        IEnumerator ReadFile()
+        {
+            // 타이밍: Start+1
+            yield return null;
+            GetScript();
+            //FileInfo fileInfo;
+        }
+
+        private void GetScript()
+        {
+            if (SimulationManager.instance != null)
+            {
+                gPUBoids = SimulationManager.instance.GPUBoids;
+                cameraOperate = SimulationManager.instance.CameraOperate;
+            }
         }
     }
 }
