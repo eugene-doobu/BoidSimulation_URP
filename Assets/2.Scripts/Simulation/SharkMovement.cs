@@ -20,8 +20,11 @@ namespace BoidsSimulationOnGPU
 
         void Start()
         {
-            wallSize = SimulationManager.instance.GPUBoids.WallSize;
-            wallCenter = SimulationManager.instance.GPUBoids.WallCenter;
+            if(SimulationManager.instance.GPUBoids != null)
+            {
+                wallSize = SimulationManager.instance.GPUBoids.WallSize;
+                wallCenter = SimulationManager.instance.GPUBoids.WallCenter;
+            }
             StartCoroutine(MoveCycle());
         }
 
@@ -50,7 +53,7 @@ namespace BoidsSimulationOnGPU
         IEnumerator RandomMove(Vector3 movePos)
         {
             bool isMoving = true;
-            float duration = movePos.magnitude / (speed + 0.00001f);
+            float duration = (movePos - wallCenter).magnitude / (speed + 0.00001f);
 
             tr.DOMove(movePos, duration)
                 .OnComplete(() => isMoving = false);
