@@ -1,19 +1,17 @@
 {
-    "name": "Tests_Play",
+    "name": "Tests",
     "rootNamespace": "",
     "references": [
-        "SimulationAssembly",
-        "DOTween.Modules",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true,
+    "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "DOTween.dll"
+        "ICSharpCode.NRefactory.dll",
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
