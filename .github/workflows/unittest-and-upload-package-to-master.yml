@@ -24,7 +24,7 @@ env:
 
   # require Deploy
   SRC_BRANCH: workspace
-  DEST_OWNER: unity-korea-community
+  DEST_OWNER: eugene-doobu
   DEST_BRANCH: main
   WORK_PATH: Packages/${{ github.event.repository.name }}
   PACKAGES_PATH: Packages
