@@ -9,8 +9,10 @@
 #
 # workflow syntax
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+#
+# eugene-doobu: deploy 작업을 제거했습니다.
 
-name: unittest and upload package to main
+name: unittest
 
 on:
   push:
@@ -24,10 +26,7 @@ env:
 
   # require Deploy
   SRC_BRANCH: workspace
-  DEST_OWNER: eugene-doobu
-  DEST_BRANCH: main
   WORK_PATH: Packages/${{ github.event.repository.name }}
-  PACKAGES_PATH: Packages
 
 jobs:
   testAllModes:
@@ -61,7 +60,6 @@ jobs:
 
       # 예전 버전으로 하면 라이센스 인증이 안됨.. 그래서 동작하는 알파로 변경
       - uses: game-ci/unity-test-runner@v2.0-alpha-4 # https://github.com/marketplace/actions/unity-test-runner
-        if: env.GIT_DIFF
         id: tests
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -74,29 +72,3 @@ jobs:
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-
-  deploy:
-    needs: testAllModes
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2 # 새로운 job이기 때문에 다시 checkout을 해야 합니다.
-        with:
-          ref: ${{ env.DEST_BRANCH }}
-          lfs: true
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Package
-          path: ${{ env.WORK_PATH }}/
-
-      - uses: andstor/copycat-action@v3.2.3 # https://github.com/marketplace/actions/copycat-action
-        with:
-          personal_token: ${{ secrets.ACCESS_TOKEN }} #require
-          src_branch: ${{ env.SRC_BRANCH }}
-          src_path: ${{ env.WORK_PATH }}/. #require, .을 안붙이면 dst_path에 src_path 폴더채로 카피됨
-          dst_owner: ${{ env.DEST_OWNER }} #require
-          dst_repo_name: ${{ github.event.repository.name }} #require
-          dst_branch: ${{ env.DEST_BRANCH }}
-          dst_path: /.
-          clean: true
