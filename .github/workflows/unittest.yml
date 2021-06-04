@@ -1,17 +1,4 @@
-# 이 워크플로는
-# 1. UnityProject/Assets/Package(=env.WORK_PATH)를 UnityProject/Packages(=env.PACKAGES_PATH)로 Move
-#
-# 2. Local Package인 채로 Unity-UnitTest 실행
-# 2-1. 문제가 있으면 Artifact에 버그 리포트 및 중단,
-# 2-2. 문제가 없으면 2로 넘어갑니다.
-#
-# 3. UnityProject/Packages를 Artifacts에 Upload를 한 뒤 {this_GithubRepository}의 main brach에 push합니다.
-#
-# workflow syntax
-# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-#
 # eugene-doobu: deploy 작업을 제거했습니다.
-
 name: unittest
 
 on:
@@ -68,7 +55,6 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
 
       - uses: actions/upload-artifact@v2
-        if: env.GIT_DIFF
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
