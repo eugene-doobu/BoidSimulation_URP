@@ -1,5 +1,6 @@
 # BoidSimulation_URP
 [![CI_SONAR_CLOUD](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml)
+[![unittest](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml)
 </br>
  2021 -- 위한 군집 시뮬레이션 테스트
 
