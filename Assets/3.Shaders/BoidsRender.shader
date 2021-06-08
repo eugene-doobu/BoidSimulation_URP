@@ -4,8 +4,6 @@
     {
         _Color("Color", Color) = (1,1,1,1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness("Smoothness", Range(0,1)) = 0.5
-        _Metallic("Metallic", Range(0,1)) = 0.0
     }
 
     SubShader
@@ -79,8 +77,6 @@
                 sampler2D _MainTex; // 텍스처
                 float4 _MainTex_ST;
 
-                half   _Glossiness; // 광택
-                half   _Metallic;   // 금속특성
                 float4  _Color;      // 컬러
 
                 float3 _ObjectScale; // Boid 객체의 크기
@@ -138,7 +134,6 @@
                 OUT.normal = normalize(mul(object2world, IN.normal));
                 OUT.color = IN.color;
 
-                //
                 OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
                 OUT.fogCoord = ComputeFogFactor(OUT.vertex.z);
 
@@ -147,7 +142,7 @@
 
                 return OUT;
             }
-
+ 
             half4 frag(Varyings IN) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(IN);
@@ -155,14 +150,15 @@
                 //Lighting Calculate(Lambert)
                 Light mainLight = GetMainLight(IN.shadowCoord);
                 float NdotL = saturate(dot(normalize(_MainLightPosition.xyz), IN.normal));
-                float3 ambient = SampleSH(IN.normal);
+                //구면조화함수에서 너무 높은값이 나와 물고기가 반짝거리는 경우가 있어 최대값 조정
+                float3 ambient = max(half3(0.8, 0.8, 0.8), SampleSH(IN.normal)); // 구면조화함수
 
                 float4 col = tex2D(_MainTex, IN.uv) * _Color;
                 //below texture sampling code does not use in material inspector
-                //float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_Maintex, IN.uv);dd
-                
-                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation + ambient;
+                //float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_Maintex, IN.uv);
+                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation; + ambient;
                 col.rgb = MixFog(col.rgb, IN.fogCoord);
+
                 return col;
             }
             ENDHLSL

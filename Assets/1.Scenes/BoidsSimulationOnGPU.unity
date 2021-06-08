@@ -732,7 +732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &490105753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,7 +1029,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &583646682
 MonoBehaviour:
@@ -1153,7 +1153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &614078542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,7 @@ Transform:
   - {fileID: 1778846894}
   - {fileID: 672391962}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926230926
 GameObject:
@@ -3146,5 +3146,9 @@ PrefabInstance:
       propertyPath: gPUBoids
       value: 
       objectReference: {fileID: 583646682}
+    - target: {fileID: 8103196748046353943, guid: fba5c2f7281a6cb489eaae612f23bc9c, type: 3}
+      propertyPath: numOfShark
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba5c2f7281a6cb489eaae612f23bc9c, type: 3}

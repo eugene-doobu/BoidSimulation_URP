@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SharkManager : MonoBehaviour
+namespace BoidsSimulationOnGPU
 {
-    [SerializeField] GameObject sharkPrefab = null;
-    List<GameObject> sharks = new List<GameObject>();
-
-    private void Awake()
+    public class SharkManager : MonoBehaviour
     {
-        for(int i=0; i<5; i++)
+        [SerializeField] GameObject sharkPrefab = null;
+        List<GameObject> sharks = new List<GameObject>();
+
+        private void Start()
         {
-            sharks.Add(Instantiate(sharkPrefab));
-            sharks[i].transform.SetParent(transform);
+            for (int i = 0; i <SimulationManager.instance.numOfShark; i++)
+            {
+                sharks.Add(Instantiate(sharkPrefab));
+                sharks[i].transform.SetParent(transform);
+            }
         }
     }
 }

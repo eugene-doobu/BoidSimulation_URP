@@ -56,6 +56,7 @@ namespace BoidsSimulationOnGPU
             float duration = (movePos - wallCenter).magnitude / (speed + 0.00001f);
 
             tr.DOMove(movePos, duration)
+                .SetEase(Ease.InSine)
                 .OnComplete(() => isMoving = false);
             tr.DOLookAt(movePos, 0.4f);
 

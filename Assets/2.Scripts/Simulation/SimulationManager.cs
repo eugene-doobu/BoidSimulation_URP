@@ -12,6 +12,8 @@ namespace BoidsSimulationOnGPU
         [SerializeField] GPUBoids gPUBoids;
         [SerializeField] CameraOperate cameraOperate;
 
+        public float numOfShark = 3;
+
         #region Properties
         public GPUBoids GPUBoids
         {
