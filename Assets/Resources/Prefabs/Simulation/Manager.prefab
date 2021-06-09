@@ -44,6 +44,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharkPrefab: {fileID: 4659340695839525592, guid: 60d8e47286d1e8f4cb399bb269bbc8ee, type: 3}
+--- !u!1 &1619314159113637932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4461468807188224693}
+  - component: {fileID: 6157707477588267809}
+  m_Layer: 0
+  m_Name: CameraJig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4461468807188224693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619314159113637932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8103196750158006881}
+  m_Father: {fileID: 8103196748046353942}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6157707477588267809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619314159113637932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2414a6d713e20ac48bcd14a9d13121db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.1
 --- !u!1 &8103196748046353941
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +117,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8103196750158006881}
+  - {fileID: 4461468807188224693}
   - {fileID: 8103196750148660695}
   - {fileID: 527173326}
   m_Father: {fileID: 0}
@@ -92,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gPUBoids: {fileID: 0}
   cameraOperate: {fileID: 8103196750158006882}
+  numOfShark: 3
 --- !u!1 &8103196750148660692
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +237,7 @@ Transform:
   m_LocalPosition: {x: -21.03, y: 8.71, z: 21.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8103196748046353942}
+  m_Father: {fileID: 4461468807188224693}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.817, y: 134.141, z: 0}
 --- !u!20 &8103196750158006880

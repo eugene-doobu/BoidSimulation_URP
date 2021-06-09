@@ -37,7 +37,7 @@ namespace PlayTest
             yield return new WaitForSeconds(0.1f);
 
             var isMovedCheck = true;
-            var mainCamera = gameObject.transform.Find("Main Camera");
+            var mainCamera = gameObject.transform.Find("CameraJig/Main Camera");
             var tmpAnchor = gameObject.transform.Find("EventSystem");
             var cameraMove = mainCamera.GetComponent<CameraMoveToObject>();
 
