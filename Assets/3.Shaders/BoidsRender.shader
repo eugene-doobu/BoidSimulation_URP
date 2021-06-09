@@ -151,12 +151,12 @@
                 Light mainLight = GetMainLight(IN.shadowCoord);
                 float NdotL = saturate(dot(normalize(_MainLightPosition.xyz), IN.normal));
                 //구면조화함수에서 너무 높은값이 나와 물고기가 반짝거리는 경우가 있어 최대값 조정
-                float3 ambient = max(half3(0.8, 0.8, 0.8), SampleSH(IN.normal)); // 구면조화함수
+                float3 ambient = min(half3(0.8, 0.8, 0.8), SampleSH(IN.normal)); // 구면조화함수
 
                 float4 col = tex2D(_MainTex, IN.uv) * _Color;
                 //below texture sampling code does not use in material inspector
                 //float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_Maintex, IN.uv);
-                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation; + ambient;
+                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation + ambient;
                 col.rgb = MixFog(col.rgb, IN.fogCoord);
 
                 return col;
