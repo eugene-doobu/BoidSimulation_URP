@@ -53,6 +53,33 @@ namespace PlayTest
         }
 
         [UnityTest]
+        public IEnumerator StageYRotateAction()
+        {
+            gameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Simulation/Manager"));
+            yield return new WaitForSeconds(0.1f);
+
+            var isRot     = false;
+            var isRotStop = false;
+            var mainCamera = gameObject.transform.Find("CameraJig");
+            // 스피드 임의의 큰값 적용
+            mainCamera.GetComponent<StageYRotate>().speed = 65535f;
+
+            // Manager의 CameraJig는 생성시 AddRotAction() 함수를 실행함
+            // AddRotAction
+            var roty = mainCamera.rotation.y;
+            yield return new WaitForSeconds(0.2f); 
+            if (Mathf.Abs(roty -= mainCamera.rotation.y) > 0.01f) isRot = true;
+
+            // RemoveRotAction
+            mainCamera.GetComponent<StageYRotate>().RemoveRotAction();
+            roty = mainCamera.rotation.y;
+            yield return new WaitForSeconds(0.2f);
+            if (Mathf.Abs(roty -= mainCamera.rotation.y) < 0.01f) isRotStop = true;
+
+            Assert.IsTrue(isRot && isRotStop, "Check Add/Remove Stage Y Rot Action...");
+        }
+
+        [UnityTest]
         public IEnumerator CheckBtnsEventInGroupPanel()
         {
             gameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Simulation/Canvas"));

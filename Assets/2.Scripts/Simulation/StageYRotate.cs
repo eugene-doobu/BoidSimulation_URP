@@ -13,6 +13,9 @@ public class StageYRotate : MonoBehaviour
     private void Awake()
     {
         tr = GetComponent<Transform>();
+    }
+    private void Start()
+    {
         AddRotAction();
     }
 
@@ -27,7 +30,7 @@ public class StageYRotate : MonoBehaviour
     }
 
     [ContextMenu("AddRotAction")]
-    void AddRotAction()
+    public void AddRotAction()
     {
         // RotAction의 중복실행을 막기 위해 Action 초기화
         rotAction = null;
@@ -35,8 +38,15 @@ public class StageYRotate : MonoBehaviour
     }
 
     [ContextMenu("RemoveRotAction")]
-    void RemoveRotAction()
+    public void RemoveRotAction()
     {
         rotAction = null;
+        rotAction += VoidFuncs;
+    }
+
+    // null Action 접근으로 인한 테스트 에러 방지용
+    void VoidFuncs()
+    {
+        return;
     }
 }
