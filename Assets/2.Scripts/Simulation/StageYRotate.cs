@@ -41,11 +41,10 @@ public class StageYRotate : MonoBehaviour
     public void RemoveRotAction()
     {
         rotAction = null;
-        rotAction += NullFuncs;
+        rotAction += NullFunc;
     }
 
     // null Action 접근으로 인한 테스트 에러 방지용
-    // 1996년 7월 28일 Bobby Woolf의 논문, The Null Object Pattern
     void NullFunc()
     {
         return;
