@@ -32,12 +32,12 @@ GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트�
 
 ## included packages
 깃허브 저장소 프로젝트에 포함되어있는 패키지와 에셋들입니다.
-별도로 설치하지 않으셔도 됩니다.
 
 - <a href="https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676">Dotween(Free ver)</a>
 - <a href="https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276">UniRx</a>
 - <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples">EntityComponentSystemSamples(model만 사용)</a>
 - <a href="https://github.com/unity-korea-community/unity-builder.git">Unity-Builder</a>
+- <a href="https://assetstore.unity.com/packages/tools/camera/cameracontroller-141370">D2og - CameraController</a>
 </br></br>
 
 ## Asset Store Assets</br>
@@ -47,8 +47,6 @@ GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트�
 
 - <a href="https://assetstore.unity.com/packages/audio/ambient/underwater-ambient-66498">Underwater Ambient</a>
 - <a href="https://jkhub.org/files/file/3216-underwater-skybox/">Underwater Skybox</a>
-- <a href="https://assetstore.unity.com/packages/tools/camera/cameracontroller-141370">D2og - CameraController</a>
-- <a href="https://assetstore.unity.com/packages/tools/gui/modern-ui-pack-150824">Mordern UI Pack(20$)</a>
 </br></br>
 
 ## Reference</br>
