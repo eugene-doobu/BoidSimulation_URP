@@ -226,7 +226,6 @@ namespace BoidsSimulationOnGPU
             cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
             cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
             obstacleArr = null;
-            Debug.Log("Fail Simulation()");
         }
 
         // 버퍼를 해제

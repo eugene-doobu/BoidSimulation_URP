@@ -155,8 +155,7 @@
 
                 float4 col = tex2D(_MainTex, IN.uv) * _Color;
                 //below texture sampling code does not use in material inspector
-                //float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_Maintex, IN.uv);
-                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.shadowAttenuation * mainLight.distanceAttenuation + ambient;
+                col.rgb *= NdotL * _MainLightColor.rgb * mainLight.distanceAttenuation + ambient;
                 col.rgb = MixFog(col.rgb, IN.fogCoord);
 
                 return col;
