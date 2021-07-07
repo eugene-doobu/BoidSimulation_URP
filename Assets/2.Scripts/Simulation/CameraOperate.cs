@@ -89,7 +89,7 @@ namespace BoidsSimulationOnGPU
                 }
             }
             // press the right mouse button to enter the rotation state
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1) && !isMove)
             {
                 isRotate = true;
                 mouseStart = Input.mousePosition;
@@ -105,7 +105,7 @@ namespace BoidsSimulationOnGPU
                 tr.position = traStart + tr.up * -offset.y * 0.1f * moveSpeed + tr.right * -offset.x * 0.1f * moveSpeed;
             }
             // click the mouse wheel to enter translation mode
-            else if (Input.GetMouseButtonDown(2))
+            else if (Input.GetMouseButtonDown(2) && !isRotate)
             {
                 isMove = true;
                 mouseStart = Input.mousePosition;
