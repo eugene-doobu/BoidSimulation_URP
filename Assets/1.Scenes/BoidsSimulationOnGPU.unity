@@ -2753,6 +2753,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\uD56D\uACF5 \uBDF0"
       objectReference: {fileID: 0}
+    - target: {fileID: 816895541578795855, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 816895541905101254, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2893,6 +2897,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\uC911\uC559 \uBDF0"
       objectReference: {fileID: 0}
+    - target: {fileID: 816895541988741853, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 816895542158216443, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2941,6 +2949,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Transform, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 816895542158216446, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 816895542448945563, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2989,6 +3001,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Transform, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 816895542448945566, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 816895542461621059, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3041,6 +3057,14 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\uB85C\uC6B0 \uBDF0"
       objectReference: {fileID: 0}
+    - target: {fileID: 816895542461621062, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
+    - target: {fileID: 816895542666516200, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 816895542666516213, guid: 55c2428150f82c94d85d3f69b83d25fd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
