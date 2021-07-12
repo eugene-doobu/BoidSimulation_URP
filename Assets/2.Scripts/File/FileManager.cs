@@ -32,8 +32,8 @@ namespace Common
         #region UnityEventFuncs
         private void Awake()
         {
-            simulationSettingPath = Path.Combine(Application.persistentDataPath, simulationSettingFile);
-            playerSettingPath = Path.Combine(Application.persistentDataPath, playerSettingFile);
+            simulationSettingPath   = Path.Combine(Application.persistentDataPath, simulationSettingFile);
+            playerSettingPath       = Path.Combine(Application.persistentDataPath, playerSettingFile);
         }
         #endregion
 
@@ -44,6 +44,28 @@ namespace Common
         /// </summary>
         public void InitFileData()
         {
+            var simulationValue = new SimulationSetting();
+            simulationValue.numOfFish = 65536;
+            simulationValue.numOfShark = 3;
+            simulationValue.cohesionRadius = 2;
+            simulationValue.alignmentRadius = 2;
+            simulationValue.separateRadius = 1;
+            simulationValue.avoidObstacleDistance = 0.9f;
+            simulationValue.cohesionWeight = 1;
+            simulationValue.alignmentWeight = 1;
+            simulationValue.separateWeight = 3;
+            simulationValue.avoidObstacleWeight = 100;
+            simulationValue.maxSpeed = 5;
+            simulationValue.maxSteer = 0.5f;
+            File.WriteAllText(simulationSettingPath, JsonUtility.ToJson(simulationValue), Encoding.Default);
+
+            var playerValue = new PlayerSetting();
+            playerValue.scrollSpeed = 1;
+            playerValue.rotateXSpeed = 1;
+            playerValue.rotateYspeed = 1;
+            playerValue.moveSpeed = 1;
+            playerValue.keyMoveSpeed = 10;
+            File.WriteAllText(playerSettingPath, JsonUtility.ToJson(playerValue), Encoding.Default);
         }
 
         /// <summary>
@@ -62,24 +84,21 @@ namespace Common
         }
 
         /// <summary>
-        /// GPU 시뮬레이션은 Start에서 설정된 값으로 동작됨
-        /// LobbyScene에서 데이터를 쓰고, Simulation Scene에서는 그 데이터를 읽기
+        /// Simuation Scene에서 설정용 Json파일을 읽기 위한 함수
         /// </summary>
         public void GetFileData()
         {
-            /*
-            File.WriteAllText(userDitectPath,
-                JsonUtility.ToJson(new UserDitectSetting(
-                    kinectUserSetting.MinUDValue,
-                    kinectUserSetting.MaxUDValue,
-                    kinectUserSetting.LRDValue,
-                    kinectUserSetting.LRCValue)),
-                Encoding.Default);
-            */
+            var simulationData = JsonUtility.FromJson<SimulationSetting>(File.ReadAllText(simulationSettingPath));
+            var playerData = JsonUtility.FromJson<PlayerSetting>(File.ReadAllText(playerSettingPath));
         }
         #endregion
 
         #region PrivateFuncs
+        #endregion
+
+        #region tmp
+        [System.Obsolete]
+        void Tmp__InitFileDataTest() => InitFileData();
         #endregion
     }
 }

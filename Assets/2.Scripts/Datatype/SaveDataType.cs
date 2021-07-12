@@ -5,18 +5,18 @@ namespace SaveData
     [Serializable]
     public class SimulationSetting
     {
-        public int maxObjectNum;
+        public int numOfFish;
+        public int numOfShark;
         public float cohesionRadius;
         public float alignmentRadius;
         public float separateRadius;
-        public float maxSpeed;
-        public float maxSteer;
+        public float avoidObstacleDistance;
         public float cohesionWeight;
         public float alignmentWeight;
         public float separateWeight;
-        public float avoidWallWeight;
         public float avoidObstacleWeight;
-        public float avoidObstacleDistance;
+        public float maxSpeed;
+        public float maxSteer;
     }
 
     [Serializable]
