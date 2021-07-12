@@ -4,6 +4,13 @@ namespace BoidsSimulationOnGPU
 {
     public class ButtonFuncs : MonoBehaviour
     {
+        FileManager fileManager;
+
+        private void Start()
+        {
+            fileManager = LobbyManager.instance.FileManager;
+        }
+
         public void OnLobbyButton()
         {
             SceneManager.LoadScene("1.Scenes/Lobby");
@@ -17,6 +24,16 @@ namespace BoidsSimulationOnGPU
         public void OnExitButton()
         {
             Application.Quit();
+        }
+
+        public void OnSettingInit()
+        {
+            fileManager.InitFileData();
+        }
+
+        public void OnSettingSave()
+        {
+
         }
     }
 }

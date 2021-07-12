@@ -2569,7 +2569,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2019114063}
+  - component: {fileID: 2019114066}
   - component: {fileID: 2019114064}
+  - component: {fileID: 2019114065}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -2606,6 +2608,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13aa1b4e5e4b52479b592e30558e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2019114065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019114062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f662768ecf24c439cca22b111644e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2019114066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019114062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45d84c025688ba419d6a3c423658d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileManager: {fileID: 2019114065}
 --- !u!224 &2044533710 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8992655369465095294, guid: 8730cd15a191b0e4288df1c46fbcbd39, type: 3}
@@ -2927,7 +2954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8992655369465095294, guid: 8730cd15a191b0e4288df1c46fbcbd39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -71.985
+      value: -71.984985
       objectReference: {fileID: 0}
     - target: {fileID: 8992655369465095294, guid: 8730cd15a191b0e4288df1c46fbcbd39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

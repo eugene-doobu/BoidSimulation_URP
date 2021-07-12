@@ -44,28 +44,28 @@ namespace BoidsSimulationOnGPU
         /// </summary>
         public void InitFileData()
         {
-            var simulationValue = new SimulationSetting();
-            simulationValue.numOfFish = 65536;
-            simulationValue.numOfShark = 3;
-            simulationValue.cohesionRadius = 2;
-            simulationValue.alignmentRadius = 2;
-            simulationValue.separateRadius = 1;
-            simulationValue.avoidObstacleDistance = 0.9f;
-            simulationValue.cohesionWeight = 1;
-            simulationValue.alignmentWeight = 1;
-            simulationValue.separateWeight = 3;
-            simulationValue.avoidObstacleWeight = 100;
-            simulationValue.maxSpeed = 5;
-            simulationValue.maxSteer = 0.5f;
-            File.WriteAllText(simulationSettingPath, JsonUtility.ToJson(simulationValue), Encoding.Default);
+            var simulationData = new SimulationSetting();
+            simulationData.numOfFish = 65536;
+            simulationData.numOfShark = 3;
+            simulationData.cohesionRadius = 2;
+            simulationData.alignmentRadius = 2;
+            simulationData.separateRadius = 1;
+            simulationData.avoidObstacleDistance = 0.9f;
+            simulationData.cohesionWeight = 1;
+            simulationData.alignmentWeight = 1;
+            simulationData.separateWeight = 3;
+            simulationData.avoidObstacleWeight = 100;
+            simulationData.maxSpeed = 5;
+            simulationData.maxSteer = 0.5f;
+            File.WriteAllText(simulationSettingPath, JsonUtility.ToJson(simulationData), Encoding.Default);
 
-            var playerValue = new PlayerSetting();
-            playerValue.scrollSpeed = 1;
-            playerValue.rotateXSpeed = 1;
-            playerValue.rotateYspeed = 1;
-            playerValue.moveSpeed = 1;
-            playerValue.keyMoveSpeed = 10;
-            File.WriteAllText(playerSettingPath, JsonUtility.ToJson(playerValue), Encoding.Default);
+            var playerData = new PlayerSetting();
+            playerData.scrollSpeed = 1;
+            playerData.rotateXSpeed = 1;
+            playerData.rotateYspeed = 1;
+            playerData.moveSpeed = 1;
+            playerData.keyMoveSpeed = 10;
+            File.WriteAllText(playerSettingPath, JsonUtility.ToJson(playerData), Encoding.Default);
         }
 
         /// <summary>
