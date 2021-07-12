@@ -11,6 +11,7 @@ namespace BoidsSimulationOnGPU
 
         [SerializeField] GPUBoids gPUBoids;
         [SerializeField] CameraOperate cameraOperate;
+        [SerializeField] FileManager fileManager;
 
         public float numOfShark = 3;
 
@@ -22,6 +23,11 @@ namespace BoidsSimulationOnGPU
         public CameraOperate CameraOperate
         {
             get { return cameraOperate; }
+        }
+
+        public FileManager FileManager
+        {
+            get { return fileManager; }
         }
         #endregion
 

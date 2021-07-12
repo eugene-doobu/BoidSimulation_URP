@@ -6,7 +6,7 @@ using BoidsSimulationOnGPU;
 using SaveData;
 using System.Text;
 
-namespace Common
+namespace BoidsSimulationOnGPU
 {
     public class FileManager : MonoBehaviour
     {
@@ -86,10 +86,18 @@ namespace Common
         /// <summary>
         /// Simuation Scene에서 설정용 Json파일을 읽기 위한 함수
         /// </summary>
-        public void GetFileData()
+        public void GetFileData(ref SimulationSetting simulationData, ref PlayerSetting playerData)
         {
-            var simulationData = JsonUtility.FromJson<SimulationSetting>(File.ReadAllText(simulationSettingPath));
-            var playerData = JsonUtility.FromJson<PlayerSetting>(File.ReadAllText(playerSettingPath));
+            var simulFI     = new FileInfo(simulationSettingPath);
+            var playerFI    = new FileInfo(playerSettingPath);
+            if(!simulFI.Exists || !playerFI.Exists)
+            {
+                Debug.LogError("no exists file");
+                InitFileData();
+            }
+
+            simulationData  = JsonUtility.FromJson<SimulationSetting>(File.ReadAllText(simulationSettingPath));
+            playerData      = JsonUtility.FromJson<PlayerSetting>(File.ReadAllText(playerSettingPath));
         }
         #endregion
 
