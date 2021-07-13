@@ -122,6 +122,8 @@ void ForceCS
 
 			float3 diff = P_position - N_position; // 자신과 다른 개체의 위치의 차이
 			float  dist = sqrt(dot(diff, diff));   // 자신과 다른 개체와의 거리
+			
+			if(dist > max(max(_SeparateNeighborhoodRadius,_AlignmentNeighborhoodRadius),_CohesionNeighborhoodRadius)) continue;
 
 			// --- 분리（Separation） ---
 			if (dist > 0.0 && dist <= _SeparateNeighborhoodRadius)
