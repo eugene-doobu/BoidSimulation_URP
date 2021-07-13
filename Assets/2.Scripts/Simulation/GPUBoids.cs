@@ -191,6 +191,20 @@ namespace BoidsSimulationOnGPU
             this._boidDataBuffer.GetData(currBoidDataArray);
 
             // 장애물 회피 계산
+            var obstacleArr = ComputeObstacleCollision();
+
+            // 컴퓨트 셰이더에 데이터 입력
+            _obstacleDataBuffer.SetData(obstacleArr);
+            cs.SetFloat("_DeltaTime", Time.deltaTime);
+            cs.SetBuffer(id, "_ObstaclePosBufferRead", _obstacleDataBuffer);
+            cs.SetBuffer(id, "_BoidForceBufferRead", _boidForceBuffer);
+            cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
+            cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
+            obstacleArr = null;
+        }
+
+        Vector3[] ComputeObstacleCollision()
+        {
             var obstacleArr = new Vector3[MaxObjectNum];
             for (int i = 0; i < MaxObjectNum; i++)
             {
@@ -217,15 +231,7 @@ namespace BoidsSimulationOnGPU
                     obstacleArr[i] = Vector3.zero;
                 }
             }
-
-            // 컴퓨트 셰이더에 데이터 입력
-            _obstacleDataBuffer.SetData(obstacleArr);
-            cs.SetFloat("_DeltaTime", Time.deltaTime);
-            cs.SetBuffer(id, "_ObstaclePosBufferRead", _obstacleDataBuffer);
-            cs.SetBuffer(id, "_BoidForceBufferRead", _boidForceBuffer);
-            cs.SetBuffer(id, "_BoidDataBufferWrite", _boidDataBuffer);
-            cs.Dispatch(id, threadGroupSize, 1, 1); // ComputeShader를 실행
-            obstacleArr = null;
+            return obstacleArr;
         }
 
         // 버퍼를 해제
