@@ -1,6 +1,7 @@
 ﻿//#define RaycastOn
 using UnityEngine;
 using System.Runtime.InteropServices;
+using SaveData;
 
 namespace BoidsSimulationOnGPU
 {
@@ -19,34 +20,34 @@ namespace BoidsSimulationOnGPU
         #region Boids Parameters
         // 최대 개체 수
         [Range(256, 65536)]
-        public int MaxObjectNum = 16384;
+        private int MaxObjectNum = 16384;
 
         // 결합을 적용하는 다른 개체와의 반경
-        public float CohesionNeighborhoodRadius = 2.0f;
+        private float CohesionNeighborhoodRadius = 2.0f;
         // 정렬을 적용하는 다른 개체와의 반경
-        public float AlignmentNeighborhoodRadius = 2.0f;
+        private float AlignmentNeighborhoodRadius = 2.0f;
         // 분리를 적용하는 다른 개체와의 반경
-        public float SeparateNeighborhoodRadius = 1.0f;
-
-        // 속도의 최대치
-        public float MaxSpeed = 5.0f;
-        // 조향력의 최대치
-        public float MaxSteerForce = 0.5f;
+        private float SeparateNeighborhoodRadius = 1.0f;
 
         // 결합하는 힘의 시뮬레이션 가중치
-        public float CohesionWeight = 1.0f;
+        private float CohesionWeight = 1.0f;
         // 정렬하는 힘의 시뮬레이션 가중치
-        public float AlignmentWeight = 1.0f;
+        private float AlignmentWeight = 1.0f;
         // 분리하는 힘의 시뮬레이션 가중치
-        public float SeparateWeight = 3.0f;
+        private float SeparateWeight = 3.0f;
+
+        // 속도의 최대치
+        private float MaxSpeed = 5.0f;
+        // 조향력의 최대치
+        private float MaxSteerForce = 0.5f;
+
+        // 장애물을 감지하는 거리(시야)
+        private float AvoidObstacleDistance = 0.9f;
+        // 장애물을 피하는 힘의 시뮬레이션 가중치
+        private float AvoidObstacleWeight = 100.0f;
 
         // 벽을 피하는 힘의 시뮬레이션 가중치
         public float AvoidWallWeight = 10.0f;
-        // 장애물을 피하는 힘의 시뮬레이션 가중치
-        public float AvoidObstacleWeight = 100.0f;
-        // 장애물을 감지하는 거리(시야)
-        public float AvoidObstacleDistance = 0.9f;
-
         // 벽의 중심 좌표
         public Vector3 WallCenter = Vector3.zero;
         // 벽의 크기
@@ -123,6 +124,25 @@ namespace BoidsSimulationOnGPU
         #endregion
 
         #region Private Functions
+        public void GetSettingData(SimulationSetting data)
+        {
+            MaxObjectNum = data.numOfFish;
+
+            CohesionNeighborhoodRadius = data.cohesionRadius;
+            AlignmentNeighborhoodRadius = data.alignmentRadius;
+            SeparateNeighborhoodRadius = data.separateRadius;
+
+            CohesionWeight = data.cohesionWeight;
+            AlignmentWeight = data.alignmentWeight;
+            SeparateWeight = data.separateWeight;
+
+            MaxSpeed = data.maxSpeed;
+            MaxSteerForce = data.maxSteer;
+
+            AvoidObstacleDistance = data.avoidObstacleDistance;
+            AvoidObstacleWeight = data.avoidObstacleWeight;
+        }
+
         // 버퍼 초기화
         void InitBuffer()
         {

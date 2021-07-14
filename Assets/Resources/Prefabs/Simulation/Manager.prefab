@@ -99,6 +99,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8103196748046353942}
   - component: {fileID: 8103196748046353943}
+  - component: {fileID: 1376290714}
+  - component: {fileID: 3383824698174541193}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -137,7 +139,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gPUBoids: {fileID: 0}
   cameraOperate: {fileID: 8103196750158006882}
-  numOfShark: 3
+  fileManager: {fileID: 1376290714}
+  sharkManager: {fileID: 527173327}
+  settingDataSpreader: {fileID: 3383824698174541193}
+  numOfShark: 30
+--- !u!114 &1376290714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103196748046353941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f662768ecf24c439cca22b111644e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3383824698174541193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103196748046353941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45b0d25a8ee1cc4c8d02a4227955678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8103196750148660692
 GameObject:
   m_ObjectHideFlags: 0

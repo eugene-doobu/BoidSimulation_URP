@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using SaveData;
 
 namespace BoidsSimulationOnGPU
 {
     public class CameraOperate : MonoBehaviour
     {
         [Header("Move Speed")]
-        [Range(0f, 2f)] public float scrollSpeed = 1f;
-        [Range(0f, 2f)] public float rotateXSpeed = 1f;
-        [Range(0f, 2f)] public float rotateYSpeed = 1f;
-        [Range(0f, 2f)] public float moveSpeed = 1f;
-        [Range(0f, 20f)] public float keyMoveSpeed = 1f;
+        [Range(0f, 2f)] float scrollSpeed = 1f;
+        [Range(0f, 2f)] float rotateXSpeed = 1f;
+        [Range(0f, 2f)] float rotateYSpeed = 1f;
+        [Range(0f, 2f)] float moveSpeed = 1f;
+        [Range(0f, 20f)] float keyMoveSpeed = 1f;
 
         //Whether currently in rotation
         private bool isRotate = false;
@@ -29,6 +30,14 @@ namespace BoidsSimulationOnGPU
         //Is the camera facing down
         private bool isDown = false;
 
+        public void GetSettingData(PlayerSetting data)
+        {
+            scrollSpeed = data.scrollSpeed;
+            rotateXSpeed = data.rotateXSpeed;
+            rotateYSpeed = data.rotateYspeed;
+            moveSpeed = data.moveSpeed;
+            keyMoveSpeed = data.keyMoveSpeed;
+        }
 
         void Start()
         {

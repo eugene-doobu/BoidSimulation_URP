@@ -12,8 +12,8 @@ namespace BoidsSimulationOnGPU
         [SerializeField] GPUBoids gPUBoids;
         [SerializeField] CameraOperate cameraOperate;
         [SerializeField] FileManager fileManager;
-
-        public float numOfShark = 3;
+        [SerializeField] SharkManager sharkManager;
+        [SerializeField] SettingDataSpreader settingDataSpreader;
 
         #region Properties
         public GPUBoids GPUBoids
@@ -29,6 +29,16 @@ namespace BoidsSimulationOnGPU
         {
             get { return fileManager; }
         }
+
+        public SharkManager SharkManager
+        {
+            get { return sharkManager; }
+        }
+
+        public SettingDataSpreader SettingDataSpreader
+        {
+            get { return settingDataSpreader; }
+        }
         #endregion
 
         private void Awake()
@@ -37,6 +47,9 @@ namespace BoidsSimulationOnGPU
                 instance = this;
             else
                 Destroy(gameObject);
+
+            // 데이터 읽어오기
+            settingDataSpreader.InitSettingDataSpreader(instance);
         }
     }
 }
