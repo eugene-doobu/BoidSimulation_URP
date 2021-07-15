@@ -28,6 +28,11 @@ namespace BoidsSimulationOnGPU
             StartCoroutine(MoveCycle());
         }
 
+        void OnDisable()
+        {
+            DOTween.Clear();
+        }
+
         Vector3 GetRandomPosition()
         {
             return new Vector3(
@@ -58,6 +63,7 @@ namespace BoidsSimulationOnGPU
             tr.DOMove(movePos, duration)
                 .SetEase(Ease.InSine)
                 .OnComplete(() => isMoving = false);
+
             tr.DOLookAt(movePos, 0.4f);
 
             while (isMoving)

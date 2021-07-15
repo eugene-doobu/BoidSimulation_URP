@@ -19,6 +19,10 @@ namespace PlayTest
             Object.Destroy(gameObject);
         }
 
+        /// ******************************
+        /// Manager Test
+        /// ******************************
+        
         [UnityTest]
         public IEnumerator CheckManagerProperties()
         {
@@ -114,6 +118,10 @@ namespace PlayTest
             Assert.IsTrue(checkShark && checkCamera);
         }
 
+        /// ******************************
+        /// Canvas Test
+        /// ******************************
+        
         [UnityTest]
         public IEnumerator CheckBtnsEventInGroupPanel()
         {
