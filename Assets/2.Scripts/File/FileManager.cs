@@ -29,15 +29,13 @@ namespace BoidsSimulationOnGPU
         }
         #endregion
 
-        #region UnityEventFuncs
-        private void Awake()
-        {
-            simulationSettingPath   = Path.Combine(Application.persistentDataPath, simulationSettingFile);
-            playerSettingPath       = Path.Combine(Application.persistentDataPath, playerSettingFile);
-        }
-        #endregion
-
         #region PublicFuncs
+        public void InitPath()
+        {
+            simulationSettingPath = Path.Combine(Application.persistentDataPath, simulationSettingFile);
+            playerSettingPath = Path.Combine(Application.persistentDataPath, playerSettingFile);
+        }
+
         /// <summary>
         /// Setting 데이터를 모두 초기화하는 함수
         /// 초기값은 'SettingData.md' 파일 참조

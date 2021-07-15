@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BoidsSimulationOnGPU;
 
 namespace BoidsSimulationOnGPU
 {
@@ -47,6 +46,9 @@ namespace BoidsSimulationOnGPU
                 instance = this;
             else
                 Destroy(gameObject);
+
+            // 경로 초기화
+            fileManager.InitPath();
 
             // 데이터 읽어오기
             settingDataSpreader.InitSettingDataSpreader(instance);

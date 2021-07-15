@@ -23,7 +23,7 @@ namespace BoidsSimulationOnGPU
             manager.FileManager.GetFileData(ref simulationData, ref playerData);
 
             // 데이터 뿌려주기
-            manager.GPUBoids.GetSettingData(simulationData);
+            manager.GPUBoids?.GetSettingData(simulationData);
             manager.SharkManager.GetSettingData(simulationData);
             manager.CameraOperate.GetSettingData(playerData);
         }

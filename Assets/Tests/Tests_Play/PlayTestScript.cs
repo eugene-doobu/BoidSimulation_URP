@@ -4,6 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using BoidsSimulationOnGPU;
+using SaveData;
+using System.Reflection;
 
 namespace PlayTest
 {
@@ -77,6 +79,39 @@ namespace PlayTest
             if (Mathf.Abs(roty -= mainCamera.rotation.y) < 0.01f) isRotStop = true;
 
             Assert.IsTrue(isRot && isRotStop, "Check Add/Remove Stage Y Rot Action...");
+        }
+
+
+        [UnityTest]
+        public IEnumerator CheckDataFromSettingJson()
+        {
+            gameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Simulation/Manager"));
+            yield return new WaitForSeconds(0.1f);
+
+            // 캐싱
+            var fileManager     = gameObject.GetComponent<FileManager>();
+            var sharkManager    = gameObject.GetComponentInChildren<SharkManager>();
+            var cameraManager   = gameObject.GetComponentInChildren<CameraOperate>();
+            yield return new WaitForSeconds(0.1f);
+
+            var simulationData = 
+                JsonUtility.FromJson<SimulationSetting>(System.IO.File.ReadAllText(fileManager.SimulationSettingPath));
+            var playerData = 
+                JsonUtility.FromJson<PlayerSetting>(System.IO.File.ReadAllText(fileManager.PlayerSettingPath));
+
+            yield return new WaitForSeconds(0.1f);
+            // 데이터 비교
+            var sharkField = typeof(SharkManager)
+                .GetField("numOfShark", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var numOfShark = (int)sharkField.GetValue(sharkManager);
+            bool checkShark = numOfShark == simulationData.numOfShark;
+
+            var cameraField = typeof(CameraOperate)
+                .GetField("scrollSpeed", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var scrollSpeed = (float)cameraField.GetValue(cameraManager);
+            bool checkCamera = Mathf.Abs(scrollSpeed - playerData.scrollSpeed) < Mathf.Epsilon;
+
+            Assert.IsTrue(checkShark && checkCamera);
         }
 
         [UnityTest]
