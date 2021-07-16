@@ -90,7 +90,7 @@ namespace BoidsSimulationOnGPU
             var playerFI    = new FileInfo(playerSettingPath);
             if(!simulFI.Exists || !playerFI.Exists)
             {
-                Debug.LogError("no exists file");
+                Debug.Log("no exists file");
                 InitFileData();
             }
 
