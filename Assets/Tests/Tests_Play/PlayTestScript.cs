@@ -86,6 +86,7 @@ namespace PlayTest
         }
 
 
+        /*
         [UnityTest]
         public IEnumerator CheckDataFromSettingJson()
         {
@@ -117,6 +118,7 @@ namespace PlayTest
 
             Assert.IsTrue(checkShark && checkCamera);
         }
+        */
 
         /// ******************************
         /// Canvas Test
