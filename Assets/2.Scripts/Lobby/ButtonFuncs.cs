@@ -25,15 +25,5 @@ namespace BoidsSimulationOnGPU
         {
             Application.Quit();
         }
-
-        public void OnSettingInit()
-        {
-            fileManager.InitFileData();
-        }
-
-        public void OnSettingSave()
-        {
-
-        }
     }
 }

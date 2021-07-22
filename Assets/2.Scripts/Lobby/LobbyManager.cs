@@ -22,6 +22,8 @@ namespace BoidsSimulationOnGPU
                 instance = this;
             else
                 Destroy(gameObject);
+
+            fileManager.InitPath();
         }
     }
 }

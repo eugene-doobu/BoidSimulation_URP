@@ -14,10 +14,14 @@ namespace BoidsSimulationOnGPU
         [SerializeField] float minValue = 0;
         InputField field;
 
-        private void Start()
+        private void Awake()
         {
             field = GetComponent<InputField>();
+            field.text = ""; // PlaceHolder 초기화
+        }
 
+        private void Start()
+        {
             // InputField에 Event연결
             field.onValueChanged.AddListener((_) => OnValueChanged());
             field.onEndEdit     .AddListener((_) => OnEndEdit());
@@ -50,7 +54,6 @@ namespace BoidsSimulationOnGPU
                 // 경고 메시지 출력
                 // ,,
             }
-            field.text = "";
         }
 
         /// <summary>
