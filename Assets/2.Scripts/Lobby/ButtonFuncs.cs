@@ -4,12 +4,7 @@ namespace BoidsSimulationOnGPU
 {
     public class ButtonFuncs : MonoBehaviour
     {
-        FileManager fileManager;
-
-        private void Start()
-        {
-            fileManager = LobbyManager.instance.FileManager;
-        }
+        [SerializeField] GameObject modal;
 
         public void OnLobbyButton()
         {
@@ -19,6 +14,20 @@ namespace BoidsSimulationOnGPU
         public void OnSimulationButton()
         {
             SceneManager.LoadScene("1.Scenes/BoidsSimulationOnGPU");
+        }
+
+        public void OnSettingButton()
+        {
+            // 모달창과 셋팅창 활성화
+            modal?.SetActive(true);
+            modal?.transform.Find("Panel_Settings").gameObject.SetActive(true);
+        }
+
+        public void OnManualButton()
+        {
+            // 모달창과 셋팅창 활성화
+            modal?.SetActive(true);
+            modal?.transform.Find("Panel_KeyMenual").gameObject.SetActive(true);
         }
 
         public void OnExitButton()

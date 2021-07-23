@@ -2,16 +2,13 @@ using UnityEngine;
 using SaveData;
 using UnityEngine.UI;
 using System.Linq;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace BoidsSimulationOnGPU
 {
     [RequireComponent(typeof(InputField))]
     public class SettingInputField:MonoBehaviour
     {
-        [SerializeField] SaveTypeEnum saveType = SaveTypeEnum.None;
-        [SerializeField] float maxValue = 0;
-        [SerializeField] float minValue = 0;
         InputField field;
 
         private void Awake()
@@ -44,31 +41,20 @@ namespace BoidsSimulationOnGPU
         /// </summary>
         public void OnEndEdit()
         {
-            if (!CheckValueIsNumber())
+            // .이 2개 이상인 경우 텍스트 초기화
+            MatchCollection matches = Regex.Matches(field.text, "[.]");
+            if(matches.Count > 1)
             {
-                // 경고 메시지 출력
-                // ,,
-            } 
-            else if (!CheckValueRangeCheck(float.Parse(field.text)))
-            {
-                // 경고 메시지 출력
-                // ,,
+                field.text = "";
+                return;
             }
         }
 
         /// <summary>
-        /// 입력된 문자열이 숫자로만 이루어져있는지 확인
+        /// 입력된 문자열이 숫자와 점(.)으로만 이루어져있는지 확인
         /// </summary>
         /// <returns>모든 캐릭터가 숫자인경우 true</returns>
         private bool CheckValueIsNumber() 
-            => field.text.All(char.IsDigit);
-
-        /// <summary>
-        /// 입력된 문자열이 최소~최대값 범위에 해당하는지 확인
-        /// </summary>
-        /// <param name="value">확인할 값</param>
-        /// <returns>해당하면 true 리턴</returns>
-        private bool CheckValueRangeCheck(float value)
-            => value <= maxValue && value >= minValue;
+            => field.text.All(c => { return char.IsDigit(c) || c == '.'; });
     }
 }

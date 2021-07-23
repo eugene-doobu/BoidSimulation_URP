@@ -17,6 +17,9 @@ namespace BoidsSimulationOnGPU
         Button initBtn;
         Button exitBtn;
 
+        GameObject settingInfo;
+        GameObject initInfo;
+
         void Awake()
         {
             tr = GetComponent<Transform>();
@@ -24,6 +27,9 @@ namespace BoidsSimulationOnGPU
             applyBtn = tr.Find("Group_Footer/Btn_ApplySetting").GetComponent<Button>();
             initBtn  = tr.Find("Group_Footer/Btn_InitSetting").GetComponent<Button>();
             exitBtn  = tr.Find("Group_Footer/Btn_ExitModal").GetComponent<Button>();
+
+            settingInfo = tr.Find("Group_Setting").gameObject;
+            initInfo    = tr.Find("Group_Init").gameObject;
 
             // 이벤트 등록
             applyBtn.onClick.AddListener(() => OnClickSettingButton());
@@ -46,7 +52,7 @@ namespace BoidsSimulationOnGPU
             filemgr.SetFileData(simulData, playerData);
 
             // 파일 저장 안내 UI 활성화
-
+            settingInfo.SetActive(true);
         }
 
         /// <summary>
@@ -60,6 +66,7 @@ namespace BoidsSimulationOnGPU
             gather.InitSettingFields();
 
             // 초기화 안내 UI 활성화
+            initInfo.SetActive(true);
         }
 
         /// <summary>
@@ -68,6 +75,8 @@ namespace BoidsSimulationOnGPU
         /// </summary>
         public void OnClickExitButton()
         {
+            // 부모의 모달창을 비활성화
+            transform.parent.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }

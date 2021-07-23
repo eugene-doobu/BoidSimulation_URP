@@ -26,7 +26,7 @@ public class StageYRotate : MonoBehaviour
 
     void RotFunc()
     {
-        tr.Rotate(Vector3.up * speed);
+        tr.Rotate(Vector3.up * speed * Time.deltaTime);
     }
 
     [ContextMenu("AddRotAction")]

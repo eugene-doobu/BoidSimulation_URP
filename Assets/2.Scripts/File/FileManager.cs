@@ -43,10 +43,15 @@ namespace BoidsSimulationOnGPU
         public void InitFileData()
         {
             var simulationData = new SimulationSetting();
-            File.WriteAllText(simulationSettingPath, JsonUtility.ToJson(simulationData), Encoding.Default);
+            File.WriteAllText(simulationSettingPath,
+                JsonUtility.ToJson(simulationData),
+                Encoding.Default);
 
             var playerData = new PlayerSetting();
-            File.WriteAllText(playerSettingPath, JsonUtility.ToJson(playerData), Encoding.Default);
+            File.WriteAllText(playerSettingPath,
+                JsonUtility.ToJson(playerData),
+                Encoding.Default);
+
         }
 
         /// <summary>
@@ -56,10 +61,10 @@ namespace BoidsSimulationOnGPU
         /// <param name="playerData">PlayerSetting에 설정된 플레이어 설정 값</param>
         public void SetFileData(SimulationSetting simulationData, PlayerSetting playerData)
         {
-            File.WriteAllText(simulationSettingFile,
+            File.WriteAllText(simulationSettingPath,
                 JsonUtility.ToJson(simulationData),
                 Encoding.Default);
-            File.WriteAllText(playerSettingFile,
+            File.WriteAllText(playerSettingPath,
                 JsonUtility.ToJson(playerData),
                 Encoding.Default);
         }
