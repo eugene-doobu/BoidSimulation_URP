@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 8103196748046353943}
   - component: {fileID: 1376290714}
   - component: {fileID: 3383824698174541193}
+  - component: {fileID: 5186921106424672316}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -142,7 +143,6 @@ MonoBehaviour:
   fileManager: {fileID: 1376290714}
   sharkManager: {fileID: 527173327}
   settingDataSpreader: {fileID: 3383824698174541193}
-  numOfShark: 30
 --- !u!114 &1376290714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +167,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45b0d25a8ee1cc4c8d02a4227955678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5186921106424672316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103196748046353941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13aa1b4e5e4b52479b592e30558e861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modal: {fileID: 0}
 --- !u!1 &8103196750148660692
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,11 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92189c3e4c187945ae253704dce9797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1
-  rotateXSpeed: 1
-  rotateYSpeed: 1
-  moveSpeed: 1
-  keyMoveSpeed: 10
 --- !u!114 &8103196750158006883
 MonoBehaviour:
   m_ObjectHideFlags: 0
