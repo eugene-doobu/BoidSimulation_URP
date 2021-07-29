@@ -9,7 +9,7 @@
   	The code may not be optimized but it was just a test
 */
 
-Shader "Custom/FishAnimation" {
+Shader "Custom/SharkAnimation" {
 	Properties{
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Color ("Color", Color) = (1,1,1,1)
