@@ -26,7 +26,6 @@ GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트�
 </br></br>
 
 ## Contact  
-<a href="https://www.instagram.com/lilldoobuboy/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=Instagram&logoColor=white&link=https://www.instagram.com/kiddoobuboy/"/></a> 
 <a href="https://www.youtube.com/channel/UCsvrVhm_WRjNVOtoRrk0-hA/"><img src="https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=YouTube&logoColor=white&link=https://www.youtube.com/channel/UCsvrVhm_WRjNVOtoRrk0-hA/"/></a>
 </br></br>
 
