@@ -2,10 +2,11 @@
 [![CI_SONAR_CLOUD](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml)
 [![unittest](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml)
 </br>
- 2021 방통대 소프트웨어 경진대회를 위한 군집 시뮬레이션 테스트
+![MainImage](./readme.png)
+ 2021 방통대 소프트웨어 경진대회를 위한 군집 시뮬레이션 테스트<br>
 
 ## Outline
-GIF
+[![Boid Simulation in Unity URP Play](http://img.youtube.com/vi/5AVVDXJSV3g/0.jpg)](https://www.youtube.com/watch?v=5AVVDXJSV3g&t=0s)<br>
 GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트입니다.
 
 
