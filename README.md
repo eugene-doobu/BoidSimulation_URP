@@ -10,7 +10,6 @@ GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트�
 
 
 ## Performance Report
-### GPU </br>
 - CPU: AMD Ryzen 9 3900x 12-core cpu
 - SSD: Samaung 980 PRO PCIe 4.0
 - GPU: NVIDIA GeForce RTX 2080 SUPER
