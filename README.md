@@ -7,7 +7,12 @@
 
 ## Outline
 [![Boid Simulation in Unity URP Play](http://img.youtube.com/vi/5AVVDXJSV3g/0.jpg)](https://www.youtube.com/watch?v=5AVVDXJSV3g&t=0s)<br>
+(BoidSimulation 플레이 영상 유튜브)<br>
 GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트입니다.
+<br><br>
+<a href="./Assets/0.Docs/SettingData.md">설정 데이터</a>
+<a href="./BoidSimulation.pptx">발표자료</a>
+
 
 
 ## Performance Report
