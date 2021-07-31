@@ -2,7 +2,7 @@
 [![CI_SONAR_CLOUD](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/sonarcloud-analysis.yml)
 [![unittest](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml/badge.svg)](https://github.com/eugene-doobu/BoidSimulation_URP/actions/workflows/unittest.yml)
 </br>
- 2021 -- 위한 군집 시뮬레이션 테스트
+ 2021 방통대 소프트웨어 경진대회를 위한 군집 시뮬레이션 테스트
 
 ## Outline
 GIF
