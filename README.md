@@ -42,8 +42,6 @@ GPU 병렬 연산을 통한 군집 시뮬레이션을 수행하는 프로젝트�
 ## Asset Store Assets</br>
 유니티 에셋스토어에서 받은 에셋들은 깃허브 저장소에 포함되지 않도록 설정하였습니다. 이 프로젝트를 다운받아 영상과 같은 테스트를 하기 위해서는 아래 에셋들이 필요합니다.
 
-대충 이미지
-
 - <a href="https://assetstore.unity.com/packages/audio/ambient/underwater-ambient-66498">Underwater Ambient</a>
 - <a href="https://jkhub.org/files/file/3216-underwater-skybox/">Underwater Skybox</a>
 </br></br>
